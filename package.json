@@ -1,0 +1,20 @@
+{
+  "name": "interview-ai",
+  "private": true,
+  "version": "0.1.0",
+  "description": "AI interview platform with live coding, realtime interviewing, speech, emotion signals, hints, feedback, and candidate history.",
+  "scripts": {
+    "dev": "concurrently \"npm --workspace apps/web run dev\" \"npm --workspace apps/realtime run dev\"",
+    "dev:web": "npm --workspace apps/web run dev",
+    "dev:realtime": "npm --workspace apps/realtime run dev",
+    "lint": "npm --workspaces run lint",
+    "typecheck": "npm --workspaces run typecheck"
+  },
+  "workspaces": [
+    "apps/web",
+    "apps/realtime"
+  ],
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
