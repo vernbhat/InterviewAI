@@ -28,10 +28,23 @@ def base_url() -> str:
 
 
 def model() -> str:
+    if provider() == "anthropic":
+        return os.getenv("LLM_MODEL", "claude_sonnet_5_5")
     return os.getenv("LLM_MODEL", DEFAULT_MODEL)
 
 
+def provider() -> str:
+    """'openai' = any OpenAI-compatible Chat Completions API (Groq default); 'anthropic' = Messages API."""
+    return os.getenv("LLM_PROVIDER", "openai").lower()
+
+
+ANTHROPIC_SERVER_SENTINEL = "__server_anthropic__"
+
+
 def server_key() -> str | None:
+    if provider() == "anthropic":
+        # The Anthropic SDK reads its own credentials (ANTHROPIC_API_KEY / platform-injected).
+        return ANTHROPIC_SERVER_SENTINEL
     return os.getenv("LLM_API_KEY") or os.getenv("GROQ_API_KEY") or None
 
 
@@ -48,8 +61,11 @@ def chat(
     temperature: float = 0.4,
     max_tokens: int = 700,
 ) -> dict[str, Any]:
+    if key == ANTHROPIC_SERVER_SENTINEL:
+        return _anthropic_chat(messages, tools, json_mode, temperature, max_tokens)
     body: dict[str, Any] = {
-        "model": model(),
+        # A user-supplied (BYOK) key always targets the OpenAI-compatible endpoint.
+        "model": model() if provider() == "openai" else DEFAULT_MODEL,
         "messages": messages,
         "temperature": temperature,
         "max_tokens": max_tokens,
@@ -107,3 +123,73 @@ def transcribe(audio: bytes, filename: str, content_type: str, key: str) -> str:
     if resp.status_code >= 400:
         raise LLMError(f"Transcription error {resp.status_code}: {resp.text[:300]}")
     return str(resp.json().get("text", "")).strip()
+
+
+# --------------------------------------------------------------------------- #
+# Anthropic adapter: accepts/returns the OpenAI message shape used everywhere else.
+# --------------------------------------------------------------------------- #
+
+def _to_anthropic(messages: list[dict[str, Any]]) -> tuple[str, list[dict[str, Any]]]:
+    system: list[str] = []
+    out: list[dict[str, Any]] = []
+
+    def push(role: str, blocks: list[dict[str, Any]]) -> None:
+        if out and out[-1]["role"] == role:
+            out[-1]["content"].extend(blocks)
+        else:
+            out.append({"role": role, "content": blocks})
+
+    for m in messages:
+        role = m["role"]
+        if role == "system":
+            system.append(m["content"])
+        elif role == "user":
+            push("user", [{"type": "text", "text": m["content"] or "(empty)"}])
+        elif role == "assistant":
+            blocks: list[dict[str, Any]] = []
+            if m.get("content"):
+                blocks.append({"type": "text", "text": m["content"]})
+            for tc in m.get("tool_calls") or []:
+                fn = tc.get("function", {})
+                try:
+                    args = json.loads(fn.get("arguments") or "{}")
+                except json.JSONDecodeError:
+                    args = {}
+                blocks.append({"type": "tool_use", "id": tc.get("id") or "call", "name": fn.get("name", ""), "input": args})
+            if blocks:
+                push("assistant", blocks)
+        elif role == "tool":
+            push("user", [{"type": "tool_result", "tool_use_id": m.get("tool_call_id") or "call", "content": m["content"]}])
+    if out and out[0]["role"] != "user":
+        out.insert(0, {"role": "user", "content": [{"type": "text", "text": "[The interview has started.]"}]})
+    return "\n\n".join(system), out
+
+
+def _anthropic_chat(messages, tools, json_mode, temperature, max_tokens) -> dict[str, Any]:
+    try:
+        import anthropic
+    except ImportError as exc:  # pragma: no cover
+        raise LLMError("LLM_PROVIDER=anthropic needs `pip install anthropic`") from exc
+    system, msgs = _to_anthropic(messages)
+    if json_mode:
+        system += "\n\nRespond with a single JSON object only, no prose and no code fences."
+    kwargs: dict[str, Any] = {"model": model(), "max_tokens": max_tokens, "system": system, "messages": msgs}
+    if tools:
+        kwargs["tools"] = [
+            {"name": t["function"]["name"], "description": t["function"].get("description", ""), "input_schema": t["function"].get("parameters") or {"type": "object", "properties": {}}}
+            for t in tools
+        ]
+    try:
+        resp = anthropic.Anthropic(default_headers={"anthropic-version": "2023-06-01"}).messages.create(**kwargs)
+    except Exception as exc:  # SDK raises many subclasses; surface them uniformly
+        raise LLMError(f"LLM request failed: {type(exc).__name__}: {str(exc)[:300]}") from exc
+    text_parts, calls = [], []
+    for block in resp.content:
+        if block.type == "text":
+            text_parts.append(block.text)
+        elif block.type == "tool_use":
+            calls.append({"id": block.id, "type": "function", "function": {"name": block.name, "arguments": json.dumps(block.input)}})
+    message: dict[str, Any] = {"role": "assistant", "content": "".join(text_parts)}
+    if calls:
+        message["tool_calls"] = calls
+    return message

@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Play } from "lucide-react";
 import { api, Language, languageLabel, ProblemSummary } from "../api";
 import { navigate } from "../App";
+import { store } from "../storage";
 
 const difficulties = ["All", "Easy", "Medium", "Hard"] as const;
 
@@ -9,7 +10,7 @@ export function Home({ llmReady, onOpenSettings }: { llmReady: boolean; onOpenSe
   const [problems, setProblems] = useState<ProblemSummary[]>([]);
   const [filter, setFilter] = useState<(typeof difficulties)[number]>("All");
   const [selected, setSelected] = useState<string | null>(null);
-  const [language, setLanguage] = useState<Language>(() => (localStorage.getItem("interviewai.lang") as Language) || "cpp");
+  const [language, setLanguage] = useState<Language>(() => (store.get("interviewai.lang") as Language) || "cpp");
   const [error, setError] = useState<string | null>(null);
   const [starting, setStarting] = useState(false);
 
@@ -30,7 +31,7 @@ export function Home({ llmReady, onOpenSettings }: { llmReady: boolean; onOpenSe
     setStarting(true);
     setError(null);
     try {
-      localStorage.setItem("interviewai.lang", language);
+      store.set("interviewai.lang", language);
       const s = await api.createSession(selected, language);
       navigate(`/interview/${s.session.id}`);
     } catch (e) {

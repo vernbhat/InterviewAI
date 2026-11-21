@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Trash2 } from "lucide-react";
 import { api, HistoryItem, languageLabel } from "../api";
 import { navigate } from "../App";
+import { confirmDialog } from "../components/Confirm";
 
 export function HistoryPage() {
   const [items, setItems] = useState<HistoryItem[] | null>(null);
@@ -13,7 +14,7 @@ export function HistoryPage() {
   }, []);
 
   async function remove(id: string) {
-    if (!window.confirm("Delete this interview and its report?")) return;
+    if (!(await confirmDialog("Delete this interview and its report?", "Delete"))) return;
     await api.deleteSession(id).catch((e: Error) => setError(e.message));
     load();
   }

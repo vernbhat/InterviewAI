@@ -106,7 +106,8 @@ def health() -> dict[str, Any]:
         "executor": runner.executor_name(),
         "server_llm_key": llm.server_key() is not None,
         "llm_model": llm.model(),
-        "llm_base_url": llm.base_url(),
+        "llm_provider": llm.provider(),
+        "llm_base_url": llm.base_url() if llm.provider() == "openai" else None,
         "phases": [{"id": p, "label": PHASE_LABELS[p]} for p in PHASES],
     }
 
@@ -262,9 +263,9 @@ def end_session(sid: str, body: EndRequest, x_llm_api_key: str | None = Header(d
 
 @app.post("/api/speech/transcribe")
 async def transcribe(file: UploadFile = File(...), x_llm_api_key: str | None = Header(default=None)) -> dict[str, Any]:
-    key = llm.resolve_key(x_llm_api_key)
+    key = (x_llm_api_key or "").strip() or (llm.server_key() if llm.provider() == "openai" else None)
     if not key:
-        raise HTTPException(503, "Voice input needs an LLM API key (Groq Whisper). Add one in Settings.")
+        raise HTTPException(503, "Voice input needs a Groq API key (Whisper). Add one in Settings.")
     audio = await file.read()
     if not audio:
         raise HTTPException(400, "Empty audio")

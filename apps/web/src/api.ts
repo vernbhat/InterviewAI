@@ -1,3 +1,4 @@
+import { store } from "./storage";
 export type Language = "cpp" | "python";
 export type Phase = "clarify" | "approach" | "code" | "test" | "complexity" | "wrapup";
 
@@ -42,12 +43,24 @@ export type SessionFull = {
 export type HistoryItem = Session & { problem_title: string; difficulty: string | null; best_passed: number | null; submit_total: number | null };
 export type Health = { status: string; version: string; executor: string; server_llm_key: boolean; llm_model: string; phases: { id: Phase; label: string }[] };
 
-const BASE = (import.meta.env.VITE_API_URL as string | undefined)?.replace(/\/$/, "") ?? "";
+// Hosted previews rewrite window.__API_BASE__ ("__PORT_8000__") to the backend proxy path at deploy time.
+// Locally (Vite dev proxy or FastAPI serving the build) the API is same-origin, so the base is "".
+declare global {
+  interface Window { __API_BASE__?: string }
+}
+function apiBase(): string {
+  const env = import.meta.env.VITE_API_URL as string | undefined;
+  if (env) return env.replace(/\/$/, "");
+  const raw = window.__API_BASE__ ?? "";
+  if (!raw || raw.startsWith("__PORT_")) return "";
+  return raw.replace(/\/$/, "");
+}
+const BASE = apiBase();
 const KEY_STORAGE = "interviewai.llmKey";
 
 export const settings = {
-  getKey: () => localStorage.getItem(KEY_STORAGE) ?? "",
-  setKey: (k: string) => (k ? localStorage.setItem(KEY_STORAGE, k.trim()) : localStorage.removeItem(KEY_STORAGE))
+  getKey: () => store.get(KEY_STORAGE) ?? "",
+  setKey: (k: string) => (k ? store.set(KEY_STORAGE, k.trim()) : store.remove(KEY_STORAGE))
 };
 
 export class ApiError extends Error {

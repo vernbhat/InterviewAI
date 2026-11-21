@@ -194,3 +194,5 @@ tr.clickable:hover td { background: #f6f8f6; }
   .editor-wrap { min-height: 380px; }
   .chat { max-height: 480px; }
 }
+.dialog.confirm { max-width: 420px; }
+.dialog.confirm p { margin: 0 0 16px; }

@@ -2,6 +2,8 @@ import { FormEvent, lazy, Suspense, useCallback, useEffect, useRef, useState } f
 import { Flag, Lightbulb, Play, RotateCcw, Send, UploadCloud } from "lucide-react";
 import { api, formatValue, Language, languageLabel, Message, RunResult, SessionFull, settings } from "../api";
 import { navigate } from "../App";
+import { confirmDialog } from "../components/Confirm";
+import { store } from "../storage";
 import { Inline, Paragraphs } from "../components/Markdown";
 import { PhaseBar } from "../components/PhaseBar";
 import { PushToTalk } from "../components/PushToTalk";
@@ -43,7 +45,7 @@ export function Interview({ id }: { id: string }) {
         setData(d);
         const lang = d.session.language;
         setLanguage(lang);
-        setCode(localStorage.getItem(codeKey(id, lang)) ?? d.session.code ?? d.problem.starter_code[lang]);
+        setCode(store.get(codeKey(id, lang)) ?? d.session.code ?? d.problem.starter_code[lang]);
         const last = [...d.submissions].reverse()[0];
         if (last) setResult({ kind: last.kind, result: last.result });
       },
@@ -60,16 +62,16 @@ export function Interview({ id }: { id: string }) {
   const updateCode = useCallback(
     (v: string) => {
       setCode(v);
-      localStorage.setItem(codeKey(id, language), v);
+      store.set(codeKey(id, language), v);
     },
     [id, language]
   );
 
   function switchLanguage(next: Language) {
     if (!data || next === language) return;
-    localStorage.setItem(codeKey(id, language), code);
+    store.set(codeKey(id, language), code);
     setLanguage(next);
-    setCode(localStorage.getItem(codeKey(id, next)) ?? data.problem.starter_code[next]);
+    setCode(store.get(codeKey(id, next)) ?? data.problem.starter_code[next]);
   }
 
   function appendMessages(...msgs: Message[]) {
@@ -129,7 +131,7 @@ export function Interview({ id }: { id: string }) {
 
   async function end() {
     if (!data || busy) return;
-    if (!window.confirm("End the interview and generate your report?")) return;
+    if (!(await confirmDialog("End the interview and generate your report?", "End interview"))) return;
     setBusy("end");
     try {
       await api.end(id, code);
@@ -217,7 +219,7 @@ export function Interview({ id }: { id: string }) {
               <button
                 className="ghost"
                 title="Reset to starter code"
-                onClick={() => window.confirm("Replace your code with the starter template?") && updateCode(problem.starter_code[language])}
+                onClick={async () => (await confirmDialog("Replace your code with the starter template?", "Reset code")) && updateCode(problem.starter_code[language])}
               >
                 <RotateCcw size={15} aria-hidden /> Reset
               </button>
