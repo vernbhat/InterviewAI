@@ -20,7 +20,9 @@ You talk through the problem with an interviewer, write code in a real editor, r
 
 ## Quick start
 
-Requirements: Python 3.11+, Node 20+, and `g++` for C++ problems.
+Requirements: Python 3.11+, Node 20+, and GCC for C++ problems.
+
+On macOS, install them with [Homebrew](https://brew.sh): `brew install python node gcc`. Apple's built-in `g++` is really clang and lacks `<bits/stdc++.h>`, so the API automatically uses Homebrew's `g++-NN` when it finds one (or set `CXX=g++-15`).
 
 ```bash
 git clone https://github.com/vernbhat/InterviewAI && cd InterviewAI

@@ -93,10 +93,14 @@ def _limits() -> None:  # pragma: no cover - runs in the child process
     import resource
 
     cpu = int(RUN_TIMEOUT_S) + 1
-    resource.setrlimit(resource.RLIMIT_CPU, (cpu, cpu))
     mem = MEMORY_LIMIT_MB * 1024 * 1024
-    resource.setrlimit(resource.RLIMIT_AS, (mem, mem))
-    resource.setrlimit(resource.RLIMIT_FSIZE, (MAX_OUTPUT_BYTES * 4, MAX_OUTPUT_BYTES * 4))
+    out = MAX_OUTPUT_BYTES * 4
+    # macOS rejects some limits (notably RLIMIT_AS); apply what the OS supports.
+    for name, value in (("RLIMIT_CPU", cpu), ("RLIMIT_AS", mem), ("RLIMIT_FSIZE", out)):
+        try:
+            resource.setrlimit(getattr(resource, name), (value, value))
+        except (ValueError, OSError, AttributeError):
+            pass
     os.setsid()
 
 
@@ -120,13 +124,24 @@ def _run(cmd: list[str], cwd: str, timeout: float, limit: bool) -> tuple[int | N
     return code, out[:MAX_OUTPUT_BYTES].decode("utf-8", "replace"), err[:MAX_OUTPUT_BYTES].decode("utf-8", "replace"), elapsed
 
 
+def _find_cxx() -> str:
+    """Pick a GCC. Apple's clang (`g++` on macOS) lacks <bits/stdc++.h>, so prefer Homebrew GCC there."""
+    if os.getenv("CXX"):
+        return os.environ["CXX"]
+    if sys.platform == "darwin":
+        for v in range(20, 9, -1):
+            if shutil.which(f"g++-{v}"):
+                return f"g++-{v}"
+    return "g++"
+
+
 def run_local(language: str, source: str) -> RawResult:
     workdir = tempfile.mkdtemp(prefix="iv-run-")
     try:
         if language == "cpp":
-            compiler = os.getenv("CXX", "g++")
+            compiler = _find_cxx()
             if not shutil.which(compiler):
-                return RawResult("internal_error", stderr=f"{compiler} not found on PATH")
+                return RawResult("internal_error", stderr=f"{compiler} not found on PATH (on macOS run: brew install gcc)")
             src = os.path.join(workdir, "main.cpp")
             with open(src, "w") as fh:
                 fh.write(source)
