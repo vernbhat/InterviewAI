@@ -20,25 +20,34 @@ You talk through the problem with an interviewer, write code in a real editor, r
 
 ## Quick start
 
-Requirements: Python 3.11+, Node 20+, and GCC for C++ problems.
-
-On macOS, install them with [Homebrew](https://brew.sh): `brew install python node gcc`. Apple's built-in `g++` is really clang and lacks `<bits/stdc++.h>`, so the API automatically uses Homebrew's `g++-NN` when it finds one (or set `CXX=g++-15`).
+### One command (macOS / Linux)
 
 ```bash
 git clone https://github.com/vernbhat/InterviewAI && cd InterviewAI
-npm install
-python -m venv .venv && source .venv/bin/activate
-pip install -r services/ai/requirements-dev.txt
-npm run dev          # API on :8000, web on :5173
+./start.sh
 ```
 
-Open http://localhost:5173. To enable the AI interviewer, click **Offline mode** in the top bar and paste a [Groq API key](https://console.groq.com/keys), or put `GROQ_API_KEY=...` in your environment before starting the API.
+On macOS you can also double-click `start.command` in Finder.
 
-Single-process mode (serve the built web app from FastAPI):
+`start.sh` installs anything missing (Python 3.11+, Node 20+, and GCC on macOS via [Homebrew](https://brew.sh)), asks for your [Groq API key](https://console.groq.com/keys), sets up `.venv`, builds the web app, and opens http://localhost:8000. Later runs skip the install steps. Use `./start.sh --key` to change the key and `PORT=8001 ./start.sh` to use a different port.
+
+### Where the API key goes
+
+You have two options:
+
+1. **In the app (simplest):** click **Offline mode** in the top bar, paste the key, and press Save. The key stays in your browser.
+2. **In `.env`:** `start.sh` creates `.env` in the repo root (next to `README.md`) from `.env.example`, and writes `GROQ_API_KEY=gsk_...` into it. The API loads this file at startup. It's git-ignored and hidden in Finder (press Cmd+Shift+. to show it), so it never gets committed. You can also edit it yourself with `open -e .env`.
+
+### Manual setup (for development)
+
+On macOS, install the requirements with `brew install python node gcc`. Apple's built-in `g++` is really clang and lacks `<bits/stdc++.h>`, so the API automatically uses Homebrew's `g++-NN` when it finds one (or set `CXX=g++-15`).
 
 ```bash
-npm run build
-cd services/ai && uvicorn app.main:app --port 8000   # http://localhost:8000
+npm install
+python3.12 -m venv .venv && source .venv/bin/activate
+pip install -r services/ai/requirements-dev.txt
+cp .env.example .env   # then put your GROQ_API_KEY in it
+npm run dev            # API on :8000, web on :5173 with hot reload
 ```
 
 ## Configuration
