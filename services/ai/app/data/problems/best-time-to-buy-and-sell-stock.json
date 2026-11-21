@@ -1,0 +1,221 @@
+{
+  "id": "best-time-to-buy-and-sell-stock",
+  "order": 2,
+  "title": "Best Time to Buy and Sell Stock",
+  "difficulty": "Easy",
+  "pattern": "Array, running minimum",
+  "statement": "`prices[i]` is the price of a stock on day `i`. Choose one day to buy and a later day to sell. Return the maximum profit, or `0` if no profit is possible.",
+  "constraints": [
+    "1 <= prices.length <= 10^5",
+    "0 <= prices[i] <= 10^4"
+  ],
+  "function": {
+    "name": "maxProfit",
+    "params": [
+      {
+        "name": "prices",
+        "type": "int[]"
+      }
+    ],
+    "returns": "int"
+  },
+  "complexity": {
+    "time": "O(n)",
+    "space": "O(1)"
+  },
+  "hints": [
+    "If you fix the selling day, what is the best buying day?",
+    "As you scan left to right, what single value summarises all earlier buying options?",
+    "Track the minimum price seen so far and the best (price - minimum) as you go."
+  ],
+  "tests": [
+    {
+      "args": [
+        [
+          7,
+          1,
+          5,
+          3,
+          6,
+          4
+        ]
+      ],
+      "expected": 5,
+      "hidden": false,
+      "explanation": "Buy at 1, sell at 6."
+    },
+    {
+      "args": [
+        [
+          7,
+          6,
+          4,
+          3,
+          1
+        ]
+      ],
+      "expected": 0,
+      "hidden": false,
+      "explanation": "Prices only fall, so the answer is 0."
+    },
+    {
+      "args": [
+        [
+          5
+        ]
+      ],
+      "expected": 0,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          1,
+          2
+        ]
+      ],
+      "expected": 1,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          2,
+          4,
+          1
+        ]
+      ],
+      "expected": 2,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          3,
+          3,
+          3
+        ]
+      ],
+      "expected": 0,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          93,
+          19,
+          75,
+          25,
+          79,
+          3,
+          53,
+          100,
+          18,
+          67,
+          80,
+          65,
+          6,
+          4,
+          79,
+          44,
+          30,
+          33,
+          99,
+          37
+        ]
+      ],
+      "expected": 97,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          67,
+          95,
+          82,
+          1,
+          6,
+          18
+        ]
+      ],
+      "expected": 28,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          78
+        ]
+      ],
+      "expected": 0,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          44,
+          18,
+          50,
+          27,
+          47,
+          2,
+          47,
+          67
+        ]
+      ],
+      "expected": 65,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          97,
+          44,
+          37,
+          45,
+          10,
+          44,
+          38,
+          31,
+          10,
+          98,
+          26,
+          29,
+          43,
+          83,
+          53,
+          33,
+          84
+        ]
+      ],
+      "expected": 88,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          3,
+          24,
+          68,
+          38,
+          45,
+          6,
+          91,
+          62,
+          89,
+          29,
+          2,
+          46,
+          38,
+          61,
+          34,
+          75,
+          86,
+          37
+        ]
+      ],
+      "expected": 88,
+      "hidden": true
+    }
+  ]
+}

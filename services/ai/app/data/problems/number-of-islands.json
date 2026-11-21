@@ -1,0 +1,377 @@
+{
+  "id": "number-of-islands",
+  "order": 6,
+  "title": "Number of Islands",
+  "difficulty": "Medium",
+  "pattern": "Grid DFS / BFS",
+  "statement": "Given an `m x n` grid of `1`s (land) and `0`s (water), return the number of islands. An island is a group of land cells connected horizontally or vertically.",
+  "constraints": [
+    "1 <= m, n <= 300",
+    "grid[i][j] is 0 or 1"
+  ],
+  "function": {
+    "name": "numIslands",
+    "params": [
+      {
+        "name": "grid",
+        "type": "int[][]"
+      }
+    ],
+    "returns": "int"
+  },
+  "complexity": {
+    "time": "O(m * n)",
+    "space": "O(m * n)"
+  },
+  "hints": [
+    "When you find an unvisited land cell, how do you make sure you never count the rest of its island again?",
+    "Each new island start should trigger a flood fill that marks every connected land cell as visited.",
+    "Scan all cells; on an unvisited 1, increment the count and run DFS/BFS over 4 neighbours, marking visited."
+  ],
+  "tests": [
+    {
+      "args": [
+        [
+          [
+            1,
+            1,
+            0,
+            0
+          ],
+          [
+            1,
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            1
+          ]
+        ]
+      ],
+      "expected": 3,
+      "hidden": false,
+      "explanation": "Three separate land groups."
+    },
+    {
+      "args": [
+        [
+          [
+            1,
+            1,
+            1
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            1,
+            1,
+            1
+          ]
+        ]
+      ],
+      "expected": 1,
+      "hidden": false,
+      "explanation": "All land connects through the middle column."
+    },
+    {
+      "args": [
+        [
+          [
+            0
+          ]
+        ]
+      ],
+      "expected": 0,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          [
+            1
+          ]
+        ]
+      ],
+      "expected": 1,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          [
+            1,
+            0,
+            1,
+            0,
+            1
+          ]
+        ]
+      ],
+      "expected": 3,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          [
+            1
+          ],
+          [
+            0
+          ],
+          [
+            1
+          ]
+        ]
+      ],
+      "expected": 2,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ]
+      ],
+      "expected": 3,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          [
+            0,
+            0,
+            0,
+            1,
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            1,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            1
+          ],
+          [
+            1,
+            0,
+            0,
+            0,
+            1,
+            0,
+            1
+          ],
+          [
+            0,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0,
+            0,
+            0,
+            1,
+            1
+          ]
+        ]
+      ],
+      "expected": 7,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          [
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ]
+      ],
+      "expected": 2,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          [
+            0
+          ],
+          [
+            0
+          ],
+          [
+            1
+          ],
+          [
+            1
+          ],
+          [
+            1
+          ],
+          [
+            1
+          ]
+        ]
+      ],
+      "expected": 1,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          [
+            0,
+            0,
+            0,
+            0,
+            1
+          ]
+        ]
+      ],
+      "expected": 1,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          [
+            0,
+            0,
+            1,
+            0,
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            1
+          ],
+          [
+            1,
+            0,
+            0,
+            0,
+            1,
+            0,
+            1
+          ],
+          [
+            1,
+            0,
+            1,
+            0,
+            1,
+            1,
+            0
+          ]
+        ]
+      ],
+      "expected": 6,
+      "hidden": true
+    }
+  ]
+}

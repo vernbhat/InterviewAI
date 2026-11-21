@@ -1,0 +1,134 @@
+{
+  "id": "valid-parentheses",
+  "order": 1,
+  "title": "Valid Parentheses",
+  "difficulty": "Easy",
+  "pattern": "Stack",
+  "statement": "Given a string `s` containing only the characters `()[]{}`, return `true` if every opening bracket is closed by the same type of bracket in the correct order, otherwise `false`.",
+  "constraints": [
+    "1 <= s.length <= 10^4",
+    "s consists only of ()[]{}"
+  ],
+  "function": {
+    "name": "isValid",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      }
+    ],
+    "returns": "bool"
+  },
+  "complexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "hints": [
+    "When you see a closing bracket, which opening bracket must it match?",
+    "The most recent unmatched opening bracket is the one that must close first. Which data structure gives you 'most recent' cheaply?",
+    "Push opening brackets on a stack; on a closing bracket, pop and compare. At the end the stack must be empty."
+  ],
+  "tests": [
+    {
+      "args": [
+        "()[]{}"
+      ],
+      "expected": true,
+      "hidden": false,
+      "explanation": "Each pair closes immediately."
+    },
+    {
+      "args": [
+        "(]"
+      ],
+      "expected": false,
+      "hidden": false,
+      "explanation": "The bracket types do not match."
+    },
+    {
+      "args": [
+        "{[()]}"
+      ],
+      "expected": true,
+      "hidden": false,
+      "explanation": "Nested pairs close in reverse order."
+    },
+    {
+      "args": [
+        "("
+      ],
+      "expected": false,
+      "hidden": true
+    },
+    {
+      "args": [
+        ")"
+      ],
+      "expected": false,
+      "hidden": true
+    },
+    {
+      "args": [
+        "(("
+      ],
+      "expected": false,
+      "hidden": true
+    },
+    {
+      "args": [
+        "([)]"
+      ],
+      "expected": false,
+      "hidden": true
+    },
+    {
+      "args": [
+        "]["
+      ],
+      "expected": false,
+      "hidden": true
+    },
+    {
+      "args": [
+        "{])}}]}][["
+      ],
+      "expected": false,
+      "hidden": true
+    },
+    {
+      "args": [
+        "[[(({[({["
+      ],
+      "expected": false,
+      "hidden": true
+    },
+    {
+      "args": [
+        "}]][]{[}]})((}])"
+      ],
+      "expected": false,
+      "hidden": true
+    },
+    {
+      "args": [
+        "({{)[({(()[}"
+      ],
+      "expected": false,
+      "hidden": true
+    },
+    {
+      "args": [
+        "([]["
+      ],
+      "expected": false,
+      "hidden": true
+    },
+    {
+      "args": [
+        "(){[]}{}{}({})"
+      ],
+      "expected": true,
+      "hidden": true
+    }
+  ]
+}

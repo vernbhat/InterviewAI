@@ -1,20 +1,23 @@
 {
   "name": "interview-ai",
   "private": true,
-  "version": "0.1.0",
-  "description": "AI interview platform with live coding, realtime interviewing, speech, emotion signals, hints, feedback, and candidate history.",
+  "version": "0.2.0",
+  "description": "Open-source, self-hostable AI mock interviewer for DSA coding rounds (C++ and Python).",
   "scripts": {
-    "dev": "concurrently \"npm --workspace apps/web run dev\" \"npm --workspace apps/realtime run dev\"",
+    "dev": "concurrently -n api,web -c blue,green \"npm run dev:api\" \"npm run dev:web\"",
     "dev:web": "npm --workspace apps/web run dev",
-    "dev:realtime": "npm --workspace apps/realtime run dev",
-    "lint": "npm --workspaces run lint",
-    "typecheck": "npm --workspaces run typecheck"
+    "dev:api": "cd services/ai && python -m uvicorn app.main:app --reload --port 8000",
+    "build": "npm --workspace apps/web run build",
+    "typecheck": "npm --workspace apps/web run typecheck",
+    "test": "cd services/ai && python -m pytest -q"
   },
   "workspaces": [
-    "apps/web",
-    "apps/realtime"
+    "apps/web"
   ],
   "devDependencies": {
-    "concurrently": "^8.2.2"
+    "concurrently": "^9.1.0"
+  },
+  "overrides": {
+    "dompurify": "^3.4.17"
   }
 }

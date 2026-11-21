@@ -1,0 +1,463 @@
+{
+  "id": "merge-intervals",
+  "order": 7,
+  "title": "Merge Intervals",
+  "difficulty": "Medium",
+  "pattern": "Sorting, intervals",
+  "statement": "Given an array of `intervals` where `intervals[i] = [start, end]`, merge all overlapping intervals and return the result sorted by start. Intervals that touch (e.g. `[1,4]` and `[4,5]`) count as overlapping.",
+  "constraints": [
+    "1 <= intervals.length <= 10^4",
+    "0 <= start <= end <= 10^4"
+  ],
+  "function": {
+    "name": "merge",
+    "params": [
+      {
+        "name": "intervals",
+        "type": "int[][]"
+      }
+    ],
+    "returns": "int[][]"
+  },
+  "complexity": {
+    "time": "O(n log n)",
+    "space": "O(n)"
+  },
+  "hints": [
+    "Overlaps are hard to find in arbitrary order. What ordering would put candidates next to each other?",
+    "After sorting by start, an interval can only overlap with the last interval you kept.",
+    "Sort by start; for each interval, extend the last kept end if start <= lastEnd, else push a new interval."
+  ],
+  "tests": [
+    {
+      "args": [
+        [
+          [
+            1,
+            3
+          ],
+          [
+            2,
+            6
+          ],
+          [
+            8,
+            10
+          ],
+          [
+            15,
+            18
+          ]
+        ]
+      ],
+      "expected": [
+        [
+          1,
+          6
+        ],
+        [
+          8,
+          10
+        ],
+        [
+          15,
+          18
+        ]
+      ],
+      "hidden": false,
+      "explanation": "[1,3] and [2,6] overlap."
+    },
+    {
+      "args": [
+        [
+          [
+            1,
+            4
+          ],
+          [
+            4,
+            5
+          ]
+        ]
+      ],
+      "expected": [
+        [
+          1,
+          5
+        ]
+      ],
+      "hidden": false,
+      "explanation": "Touching intervals merge."
+    },
+    {
+      "args": [
+        [
+          [
+            1,
+            1
+          ]
+        ]
+      ],
+      "expected": [
+        [
+          1,
+          1
+        ]
+      ],
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          [
+            5,
+            6
+          ],
+          [
+            1,
+            2
+          ]
+        ]
+      ],
+      "expected": [
+        [
+          1,
+          2
+        ],
+        [
+          5,
+          6
+        ]
+      ],
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          [
+            1,
+            10
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            4,
+            5
+          ]
+        ]
+      ],
+      "expected": [
+        [
+          1,
+          10
+        ]
+      ],
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          [
+            2,
+            3
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ],
+          [
+            1,
+            3
+          ]
+        ]
+      ],
+      "expected": [
+        [
+          1,
+          3
+        ]
+      ],
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          [
+            21,
+            26
+          ],
+          [
+            13,
+            15
+          ]
+        ]
+      ],
+      "expected": [
+        [
+          13,
+          15
+        ],
+        [
+          21,
+          26
+        ]
+      ],
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          [
+            19,
+            22
+          ],
+          [
+            26,
+            34
+          ],
+          [
+            28,
+            34
+          ],
+          [
+            8,
+            13
+          ],
+          [
+            24,
+            29
+          ],
+          [
+            30,
+            34
+          ]
+        ]
+      ],
+      "expected": [
+        [
+          8,
+          13
+        ],
+        [
+          19,
+          22
+        ],
+        [
+          24,
+          34
+        ]
+      ],
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          [
+            9,
+            16
+          ],
+          [
+            14,
+            16
+          ],
+          [
+            9,
+            15
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            3,
+            5
+          ],
+          [
+            12,
+            19
+          ],
+          [
+            19,
+            20
+          ]
+        ]
+      ],
+      "expected": [
+        [
+          0,
+          5
+        ],
+        [
+          9,
+          20
+        ]
+      ],
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          [
+            0,
+            1
+          ],
+          [
+            32,
+            33
+          ],
+          [
+            30,
+            36
+          ],
+          [
+            22,
+            29
+          ]
+        ]
+      ],
+      "expected": [
+        [
+          0,
+          1
+        ],
+        [
+          22,
+          29
+        ],
+        [
+          30,
+          36
+        ]
+      ],
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          [
+            29,
+            30
+          ],
+          [
+            13,
+            20
+          ],
+          [
+            18,
+            19
+          ],
+          [
+            12,
+            16
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            34,
+            38
+          ],
+          [
+            38,
+            43
+          ],
+          [
+            27,
+            35
+          ],
+          [
+            11,
+            16
+          ],
+          [
+            10,
+            13
+          ]
+        ]
+      ],
+      "expected": [
+        [
+          0,
+          1
+        ],
+        [
+          10,
+          20
+        ],
+        [
+          27,
+          43
+        ]
+      ],
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          [
+            20,
+            27
+          ],
+          [
+            30,
+            33
+          ],
+          [
+            9,
+            10
+          ],
+          [
+            32,
+            35
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            22,
+            30
+          ],
+          [
+            22,
+            28
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            20,
+            24
+          ]
+        ]
+      ],
+      "expected": [
+        [
+          0,
+          1
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          9,
+          10
+        ],
+        [
+          20,
+          35
+        ]
+      ],
+      "hidden": true
+    }
+  ]
+}
