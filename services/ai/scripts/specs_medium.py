@@ -393,7 +393,7 @@ def gen_decode(rng):
 
 
 def gen_wordbreak(rng):
-    words = list({"".join(rng.choice("ab") for _ in range(rng.randint(1, 3))) for _ in range(rng.randint(1, 5))})
+    words = sorted({"".join(rng.choice("ab") for _ in range(rng.randint(1, 3))) for _ in range(rng.randint(1, 5))})
     if rng.random() < 0.5:
         s = "".join(rng.choice(words) for _ in range(rng.randint(1, 5)))
     else:
