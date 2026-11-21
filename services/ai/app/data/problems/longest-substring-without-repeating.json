@@ -1,0 +1,134 @@
+{
+  "id": "longest-substring-without-repeating",
+  "order": 4,
+  "title": "Longest Substring Without Repeating Characters",
+  "difficulty": "Medium",
+  "pattern": "Sliding window",
+  "statement": "Given a string `s`, return the length of the longest substring that contains no repeated characters.",
+  "constraints": [
+    "0 <= s.length <= 5 * 10^4",
+    "s consists of printable ASCII characters"
+  ],
+  "function": {
+    "name": "lengthOfLongestSubstring",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      }
+    ],
+    "returns": "int"
+  },
+  "complexity": {
+    "time": "O(n)",
+    "space": "O(min(n, alphabet))"
+  },
+  "hints": [
+    "Checking every substring is O(n^2) or worse. Can you reuse work as the right end moves?",
+    "Keep a window with no repeats. When a repeat enters, how far must the left edge jump?",
+    "Store the last index of each character. On a repeat inside the window, set left = last[ch] + 1."
+  ],
+  "tests": [
+    {
+      "args": [
+        "abcabcbb"
+      ],
+      "expected": 3,
+      "hidden": false,
+      "explanation": "\"abc\" has length 3."
+    },
+    {
+      "args": [
+        "bbbbb"
+      ],
+      "expected": 1,
+      "hidden": false,
+      "explanation": "\"b\" has length 1."
+    },
+    {
+      "args": [
+        "pwwkew"
+      ],
+      "expected": 3,
+      "hidden": false,
+      "explanation": "\"wke\" has length 3."
+    },
+    {
+      "args": [
+        ""
+      ],
+      "expected": 0,
+      "hidden": true
+    },
+    {
+      "args": [
+        " "
+      ],
+      "expected": 1,
+      "hidden": true
+    },
+    {
+      "args": [
+        "abba"
+      ],
+      "expected": 2,
+      "hidden": true
+    },
+    {
+      "args": [
+        "dvdf"
+      ],
+      "expected": 3,
+      "hidden": true
+    },
+    {
+      "args": [
+        "a b c a"
+      ],
+      "expected": 3,
+      "hidden": true
+    },
+    {
+      "args": [
+        "babbbaa"
+      ],
+      "expected": 2,
+      "hidden": true
+    },
+    {
+      "args": [
+        "cccaaabbacaccc"
+      ],
+      "expected": 3,
+      "hidden": true
+    },
+    {
+      "args": [
+        "bbccbabccbacbbb"
+      ],
+      "expected": 3,
+      "hidden": true
+    },
+    {
+      "args": [
+        "abababbaaaaa"
+      ],
+      "expected": 2,
+      "hidden": true
+    },
+    {
+      "args": [
+        "aaabbbbbbaaabaaa"
+      ],
+      "expected": 2,
+      "hidden": true
+    },
+    {
+      "args": [
+        "aa"
+      ],
+      "expected": 1,
+      "hidden": true
+    }
+  ]
+}

@@ -1,0 +1,244 @@
+{
+  "id": "kth-largest-element",
+  "order": 9,
+  "title": "Kth Largest Element in an Array",
+  "difficulty": "Medium",
+  "pattern": "Heap / quickselect",
+  "statement": "Given an integer array `nums` and an integer `k`, return the `k`th largest element (in sorted order, not the `k`th distinct element).",
+  "constraints": [
+    "1 <= k <= nums.length <= 10^5",
+    "-10^4 <= nums[i] <= 10^4"
+  ],
+  "function": {
+    "name": "findKthLargest",
+    "params": [
+      {
+        "name": "nums",
+        "type": "int[]"
+      },
+      {
+        "name": "k",
+        "type": "int"
+      }
+    ],
+    "returns": "int"
+  },
+  "complexity": {
+    "time": "O(n log k) with a heap, O(n) average with quickselect",
+    "space": "O(k)"
+  },
+  "hints": [
+    "Sorting works in O(n log n). Can you avoid ordering elements you do not care about?",
+    "You only need to remember the k largest values seen so far. Which structure lets you evict the smallest of them fast?",
+    "Keep a min-heap of size k; push each value and pop when size exceeds k. The heap top is the answer."
+  ],
+  "tests": [
+    {
+      "args": [
+        [
+          3,
+          2,
+          1,
+          5,
+          6,
+          4
+        ],
+        2
+      ],
+      "expected": 5,
+      "hidden": false,
+      "explanation": "Sorted descending: 6, 5, ..."
+    },
+    {
+      "args": [
+        [
+          3,
+          2,
+          3,
+          1,
+          2,
+          4,
+          5,
+          5,
+          6
+        ],
+        4
+      ],
+      "expected": 4,
+      "hidden": false,
+      "explanation": "Duplicates count separately."
+    },
+    {
+      "args": [
+        [
+          1
+        ],
+        1
+      ],
+      "expected": 1,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          2,
+          1
+        ],
+        2
+      ],
+      "expected": 1,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          -1,
+          -1
+        ],
+        1
+      ],
+      "expected": -1,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          7,
+          7,
+          7,
+          7
+        ],
+        3
+      ],
+      "expected": 7,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          44,
+          -16,
+          37,
+          -31,
+          26,
+          -37,
+          -24,
+          -37,
+          36,
+          -38,
+          38,
+          -31,
+          1,
+          37,
+          -13
+        ],
+        5
+      ],
+      "expected": 36,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          -5,
+          -9,
+          5,
+          -34,
+          -13,
+          -42,
+          44,
+          -12,
+          -15,
+          -2,
+          40,
+          -25
+        ],
+        5
+      ],
+      "expected": -5,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          30,
+          -35,
+          -50,
+          9,
+          -40,
+          -16,
+          1,
+          15,
+          31,
+          15,
+          -23,
+          -18,
+          -41,
+          -26,
+          9,
+          -45,
+          5
+        ],
+        1
+      ],
+      "expected": 31,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          -48,
+          7,
+          6,
+          25,
+          41,
+          -35,
+          -4,
+          35,
+          -45,
+          -7
+        ],
+        6
+      ],
+      "expected": -4,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          -29,
+          18
+        ],
+        2
+      ],
+      "expected": -29,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          16,
+          12,
+          -10,
+          13,
+          -18,
+          50,
+          50,
+          -20,
+          -40,
+          -13,
+          20,
+          -43,
+          -31,
+          43,
+          21,
+          20,
+          49
+        ],
+        3
+      ],
+      "expected": 49,
+      "hidden": true
+    }
+  ]
+}

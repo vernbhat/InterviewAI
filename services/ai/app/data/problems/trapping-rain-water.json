@@ -1,0 +1,270 @@
+{
+  "id": "trapping-rain-water",
+  "order": 10,
+  "title": "Trapping Rain Water",
+  "difficulty": "Hard",
+  "pattern": "Two pointers",
+  "statement": "Given `n` non-negative integers `height` representing an elevation map where each bar has width 1, return how many units of water it can trap after raining.",
+  "constraints": [
+    "1 <= n <= 2 * 10^4",
+    "0 <= height[i] <= 10^5"
+  ],
+  "function": {
+    "name": "trap",
+    "params": [
+      {
+        "name": "height",
+        "type": "int[]"
+      }
+    ],
+    "returns": "int"
+  },
+  "complexity": {
+    "time": "O(n)",
+    "space": "O(1)"
+  },
+  "hints": [
+    "How much water sits above a single bar i? It depends on two other heights.",
+    "water[i] = min(maxLeft[i], maxRight[i]) - height[i]. Precomputing both arrays gives O(n) time and O(n) space.",
+    "Two pointers: move the side with the smaller height inward, tracking that side's max; the smaller side's max bounds its water."
+  ],
+  "tests": [
+    {
+      "args": [
+        [
+          0,
+          1,
+          0,
+          2,
+          1,
+          0,
+          1,
+          3,
+          2,
+          1,
+          2,
+          1
+        ]
+      ],
+      "expected": 6,
+      "hidden": false,
+      "explanation": "6 units are trapped."
+    },
+    {
+      "args": [
+        [
+          4,
+          2,
+          0,
+          3,
+          2,
+          5
+        ]
+      ],
+      "expected": 9,
+      "hidden": false,
+      "explanation": "9 units are trapped."
+    },
+    {
+      "args": [
+        [
+          1
+        ]
+      ],
+      "expected": 0,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          3,
+          0
+        ]
+      ],
+      "expected": 0,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          2,
+          0,
+          2
+        ]
+      ],
+      "expected": 2,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          5,
+          4,
+          3,
+          2,
+          1
+        ]
+      ],
+      "expected": 0,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "expected": 0,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          2,
+          2
+        ]
+      ],
+      "expected": 0,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          6,
+          6,
+          1,
+          6,
+          6,
+          1,
+          6,
+          2,
+          5,
+          6,
+          3,
+          4,
+          0,
+          3,
+          4,
+          0
+        ]
+      ],
+      "expected": 21,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          5,
+          0,
+          0,
+          5,
+          3,
+          1,
+          2,
+          4,
+          1,
+          3,
+          2,
+          3,
+          1,
+          0,
+          0,
+          3,
+          3,
+          0,
+          4,
+          4,
+          5
+        ]
+      ],
+      "expected": 56,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          3,
+          6,
+          2,
+          6,
+          2,
+          6,
+          5,
+          5,
+          4,
+          3,
+          0,
+          0,
+          5,
+          3,
+          0,
+          3,
+          4,
+          5,
+          0,
+          0,
+          1,
+          6,
+          3,
+          1,
+          2
+        ]
+      ],
+      "expected": 61,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          0,
+          2,
+          3,
+          4,
+          4,
+          4,
+          0,
+          5,
+          2,
+          4,
+          5,
+          4
+        ]
+      ],
+      "expected": 8,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          5,
+          6,
+          5,
+          1,
+          3,
+          1,
+          4,
+          6,
+          5,
+          5,
+          1,
+          2,
+          6,
+          6,
+          4,
+          4,
+          6,
+          0,
+          3,
+          0,
+          2,
+          1,
+          1
+        ]
+      ],
+      "expected": 36,
+      "hidden": true
+    }
+  ]
+}
