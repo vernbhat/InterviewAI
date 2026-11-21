@@ -1,0 +1,403 @@
+{
+  "id": "counting-bits",
+  "order": 24,
+  "title": "Counting Bits",
+  "difficulty": "Easy",
+  "pattern": "DP on bits",
+  "statement": "Given an integer `n`, return an array `ans` of length `n + 1` where `ans[i]` is the number of `1` bits in the binary form of `i`.",
+  "constraints": [
+    "0 <= n <= 10^5"
+  ],
+  "function": {
+    "name": "countBits",
+    "params": [
+      {
+        "name": "n",
+        "type": "int"
+      }
+    ],
+    "returns": "int[]"
+  },
+  "complexity": {
+    "time": "O(n)",
+    "space": "O(1) extra"
+  },
+  "hints": [
+    "Counting the bits of each number separately is O(n log n). Can earlier answers help?",
+    "How does i relate to i >> 1 in binary?",
+    "ans[i] = ans[i >> 1] + (i & 1)."
+  ],
+  "tests": [
+    {
+      "args": [
+        2
+      ],
+      "expected": [
+        0,
+        1,
+        1
+      ],
+      "hidden": false,
+      "explanation": "[0, 1, 1]."
+    },
+    {
+      "args": [
+        5
+      ],
+      "expected": [
+        0,
+        1,
+        1,
+        2,
+        1,
+        2
+      ],
+      "hidden": false,
+      "explanation": "[0, 1, 1, 2, 1, 2]."
+    },
+    {
+      "args": [
+        0
+      ],
+      "expected": [
+        0
+      ],
+      "hidden": true
+    },
+    {
+      "args": [
+        1
+      ],
+      "expected": [
+        0,
+        1
+      ],
+      "hidden": true
+    },
+    {
+      "args": [
+        8
+      ],
+      "expected": [
+        0,
+        1,
+        1,
+        2,
+        1,
+        2,
+        2,
+        3,
+        1
+      ],
+      "hidden": true
+    },
+    {
+      "args": [
+        16
+      ],
+      "expected": [
+        0,
+        1,
+        1,
+        2,
+        1,
+        2,
+        2,
+        3,
+        1,
+        2,
+        2,
+        3,
+        2,
+        3,
+        3,
+        4,
+        1
+      ],
+      "hidden": true
+    },
+    {
+      "args": [
+        48
+      ],
+      "expected": [
+        0,
+        1,
+        1,
+        2,
+        1,
+        2,
+        2,
+        3,
+        1,
+        2,
+        2,
+        3,
+        2,
+        3,
+        3,
+        4,
+        1,
+        2,
+        2,
+        3,
+        2,
+        3,
+        3,
+        4,
+        2,
+        3,
+        3,
+        4,
+        3,
+        4,
+        4,
+        5,
+        1,
+        2,
+        2,
+        3,
+        2,
+        3,
+        3,
+        4,
+        2,
+        3,
+        3,
+        4,
+        3,
+        4,
+        4,
+        5,
+        2
+      ],
+      "hidden": true
+    },
+    {
+      "args": [
+        50
+      ],
+      "expected": [
+        0,
+        1,
+        1,
+        2,
+        1,
+        2,
+        2,
+        3,
+        1,
+        2,
+        2,
+        3,
+        2,
+        3,
+        3,
+        4,
+        1,
+        2,
+        2,
+        3,
+        2,
+        3,
+        3,
+        4,
+        2,
+        3,
+        3,
+        4,
+        3,
+        4,
+        4,
+        5,
+        1,
+        2,
+        2,
+        3,
+        2,
+        3,
+        3,
+        4,
+        2,
+        3,
+        3,
+        4,
+        3,
+        4,
+        4,
+        5,
+        2,
+        3,
+        3
+      ],
+      "hidden": true
+    },
+    {
+      "args": [
+        22
+      ],
+      "expected": [
+        0,
+        1,
+        1,
+        2,
+        1,
+        2,
+        2,
+        3,
+        1,
+        2,
+        2,
+        3,
+        2,
+        3,
+        3,
+        4,
+        1,
+        2,
+        2,
+        3,
+        2,
+        3,
+        3
+      ],
+      "hidden": true
+    },
+    {
+      "args": [
+        29
+      ],
+      "expected": [
+        0,
+        1,
+        1,
+        2,
+        1,
+        2,
+        2,
+        3,
+        1,
+        2,
+        2,
+        3,
+        2,
+        3,
+        3,
+        4,
+        1,
+        2,
+        2,
+        3,
+        2,
+        3,
+        3,
+        4,
+        2,
+        3,
+        3,
+        4,
+        3,
+        4
+      ],
+      "hidden": true
+    },
+    {
+      "args": [
+        47
+      ],
+      "expected": [
+        0,
+        1,
+        1,
+        2,
+        1,
+        2,
+        2,
+        3,
+        1,
+        2,
+        2,
+        3,
+        2,
+        3,
+        3,
+        4,
+        1,
+        2,
+        2,
+        3,
+        2,
+        3,
+        3,
+        4,
+        2,
+        3,
+        3,
+        4,
+        3,
+        4,
+        4,
+        5,
+        1,
+        2,
+        2,
+        3,
+        2,
+        3,
+        3,
+        4,
+        2,
+        3,
+        3,
+        4,
+        3,
+        4,
+        4,
+        5
+      ],
+      "hidden": true
+    },
+    {
+      "args": [
+        33
+      ],
+      "expected": [
+        0,
+        1,
+        1,
+        2,
+        1,
+        2,
+        2,
+        3,
+        1,
+        2,
+        2,
+        3,
+        2,
+        3,
+        3,
+        4,
+        1,
+        2,
+        2,
+        3,
+        2,
+        3,
+        3,
+        4,
+        2,
+        3,
+        3,
+        4,
+        3,
+        4,
+        4,
+        5,
+        1,
+        2
+      ],
+      "hidden": true
+    }
+  ]
+}

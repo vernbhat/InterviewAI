@@ -1,0 +1,192 @@
+{
+  "id": "word-break",
+  "order": 40,
+  "title": "Word Break",
+  "difficulty": "Medium",
+  "pattern": "1D dynamic programming",
+  "statement": "Given a string `s` and a list of words `wordDict`, return `true` if `s` can be split into a sequence of one or more dictionary words (words may be reused).",
+  "constraints": [
+    "1 <= s.length <= 300",
+    "1 <= wordDict.length <= 1000"
+  ],
+  "function": {
+    "name": "wordBreak",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      },
+      {
+        "name": "wordDict",
+        "type": "string[]"
+      }
+    ],
+    "returns": "bool"
+  },
+  "complexity": {
+    "time": "O(n^2) substring checks",
+    "space": "O(n)"
+  },
+  "hints": [
+    "Plain recursion re-solves the same suffixes many times.",
+    "Let ok[i] mean the prefix s[0..i) can be segmented. How does ok[i] depend on earlier values?",
+    "ok[0] = true; ok[i] = true if some j < i has ok[j] and s[j..i) in the dictionary (use a hash set)."
+  ],
+  "tests": [
+    {
+      "args": [
+        "leetcode",
+        [
+          "leet",
+          "code"
+        ]
+      ],
+      "expected": true,
+      "hidden": false,
+      "explanation": "leet + code."
+    },
+    {
+      "args": [
+        "applepenapple",
+        [
+          "apple",
+          "pen"
+        ]
+      ],
+      "expected": true,
+      "hidden": false,
+      "explanation": "Words may repeat."
+    },
+    {
+      "args": [
+        "catsandog",
+        [
+          "cats",
+          "dog",
+          "sand",
+          "and",
+          "cat"
+        ]
+      ],
+      "expected": false,
+      "hidden": false,
+      "explanation": "No split works."
+    },
+    {
+      "args": [
+        "a",
+        [
+          "b"
+        ]
+      ],
+      "expected": false,
+      "hidden": true
+    },
+    {
+      "args": [
+        "aaaa",
+        [
+          "a",
+          "aa"
+        ]
+      ],
+      "expected": true,
+      "hidden": true
+    },
+    {
+      "args": [
+        "ab",
+        [
+          "a",
+          "b"
+        ]
+      ],
+      "expected": true,
+      "hidden": true
+    },
+    {
+      "args": [
+        "aaab",
+        [
+          "a",
+          "aa"
+        ]
+      ],
+      "expected": false,
+      "hidden": true
+    },
+    {
+      "args": [
+        "bbaabaaabbbaa",
+        [
+          "a",
+          "abb",
+          "b",
+          "baa"
+        ]
+      ],
+      "expected": true,
+      "hidden": true
+    },
+    {
+      "args": [
+        "abab",
+        [
+          "b"
+        ]
+      ],
+      "expected": false,
+      "hidden": true
+    },
+    {
+      "args": [
+        "ababab",
+        [
+          "a",
+          "aba",
+          "b",
+          "ba",
+          "bbb"
+        ]
+      ],
+      "expected": true,
+      "hidden": true
+    },
+    {
+      "args": [
+        "ba",
+        [
+          "ba"
+        ]
+      ],
+      "expected": true,
+      "hidden": true
+    },
+    {
+      "args": [
+        "bb",
+        [
+          "a",
+          "aab",
+          "ab",
+          "bab",
+          "bbb"
+        ]
+      ],
+      "expected": false,
+      "hidden": true
+    },
+    {
+      "args": [
+        "abababbab",
+        [
+          "a",
+          "aba",
+          "bab"
+        ]
+      ],
+      "expected": true,
+      "hidden": true
+    }
+  ]
+}

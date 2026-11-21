@@ -1,0 +1,213 @@
+{
+  "id": "house-robber",
+  "order": 35,
+  "title": "House Robber",
+  "difficulty": "Medium",
+  "pattern": "1D dynamic programming",
+  "statement": "`nums[i]` is the money in house `i` along a street. You cannot rob two adjacent houses. Return the maximum amount you can rob.",
+  "constraints": [
+    "1 <= nums.length <= 100",
+    "0 <= nums[i] <= 400"
+  ],
+  "function": {
+    "name": "rob",
+    "params": [
+      {
+        "name": "nums",
+        "type": "int[]"
+      }
+    ],
+    "returns": "int"
+  },
+  "complexity": {
+    "time": "O(n)",
+    "space": "O(1)"
+  },
+  "hints": [
+    "Greedy (always take the biggest) fails. Think about house i: rob it or skip it.",
+    "best(i) = max(best(i-1), best(i-2) + nums[i]).",
+    "Iterate keeping two values: the best with house i robbed and the best with it skipped."
+  ],
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          1
+        ]
+      ],
+      "expected": 4,
+      "hidden": false,
+      "explanation": "Rob houses 0 and 2: 4."
+    },
+    {
+      "args": [
+        [
+          2,
+          7,
+          9,
+          3,
+          1
+        ]
+      ],
+      "expected": 12,
+      "hidden": false,
+      "explanation": "Rob 2 + 9 + 1 = 12."
+    },
+    {
+      "args": [
+        [
+          5
+        ]
+      ],
+      "expected": 5,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          1,
+          9
+        ]
+      ],
+      "expected": 9,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "expected": 0,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          2,
+          1,
+          1,
+          2
+        ]
+      ],
+      "expected": 4,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          31,
+          33,
+          24,
+          39,
+          25,
+          19,
+          30,
+          36,
+          6,
+          5,
+          36,
+          28,
+          6,
+          20,
+          36
+        ]
+      ],
+      "expected": 205,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          29,
+          27,
+          31,
+          23,
+          27,
+          6,
+          6
+        ]
+      ],
+      "expected": 93,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          31,
+          33,
+          19,
+          38,
+          19,
+          10,
+          30,
+          35,
+          14
+        ]
+      ],
+      "expected": 116,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          29,
+          7,
+          32,
+          19,
+          32,
+          21,
+          26,
+          17,
+          31,
+          1,
+          8
+        ]
+      ],
+      "expected": 158,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          8,
+          34,
+          10,
+          8,
+          35,
+          37,
+          2,
+          6,
+          11,
+          30,
+          39
+        ]
+      ],
+      "expected": 129,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          2,
+          31,
+          32,
+          24,
+          40,
+          32,
+          37,
+          8,
+          15,
+          1
+        ]
+      ],
+      "expected": 126,
+      "hidden": true
+    }
+  ]
+}

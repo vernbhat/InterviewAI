@@ -8,7 +8,7 @@ You talk through the problem with an interviewer, write code in a real editor, r
 
 ## Features
 
-- **12 curated problems** (4 Easy, 6 Medium, 2 Hard) with 145 tests. Expected outputs are computed by reference solutions, and CI checks that independent Python and C++ references pass every test.
+- **62 curated problems** (20 Easy, 32 Medium, 10 Hard) with 777 tests, searchable by name or pattern. Expected outputs are computed by reference solutions, and CI checks that independent Python and C++ references pass every test.
 - **Real code execution** for C++17 and Python: compile errors with your line numbers, runtime errors, time limits, your own `print`/`cout` output, and hidden tests that report pass/fail without revealing inputs.
 - **Interviewer agent** (LLM mode): a tool-calling agent with `get_test_results`, `give_hint` and `set_phase`, running a six-phase state machine (clarify, approach, code, test, complexity, wrap up). A leak guard blocks and rewrites replies that contain code.
 - **Offline mode**: with no API key you get a deterministic scripted interviewer, clearly labelled. The app is fully usable without any key.

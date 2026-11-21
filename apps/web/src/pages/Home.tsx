@@ -1,10 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
-import { Play } from "lucide-react";
+import { Play, Search, Shuffle } from "lucide-react";
 import { api, Language, languageLabel, ProblemSummary } from "../api";
 import { navigate } from "../App";
 import { store } from "../storage";
 
 const difficulties = ["All", "Easy", "Medium", "Hard"] as const;
+const rank: Record<string, number> = { Easy: 0, Medium: 1, Hard: 2 };
 
 export function Home({ llmReady, onOpenSettings }: { llmReady: boolean; onOpenSettings: () => void }) {
   const [problems, setProblems] = useState<ProblemSummary[]>([]);
@@ -13,6 +14,7 @@ export function Home({ llmReady, onOpenSettings }: { llmReady: boolean; onOpenSe
   const [language, setLanguage] = useState<Language>(() => (store.get("interviewai.lang") as Language) || "cpp");
   const [error, setError] = useState<string | null>(null);
   const [starting, setStarting] = useState(false);
+  const [query, setQuery] = useState("");
 
   useEffect(() => {
     api.problems().then(
@@ -24,7 +26,21 @@ export function Home({ llmReady, onOpenSettings }: { llmReady: boolean; onOpenSe
     );
   }, []);
 
-  const shown = useMemo(() => problems.filter((p) => filter === "All" || p.difficulty === filter), [problems, filter]);
+  const shown = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    return problems
+      .map((p, i) => ({ p, i }))
+      .filter(({ p }) => (filter === "All" || p.difficulty === filter) && (!q || p.title.toLowerCase().includes(q) || p.pattern.toLowerCase().includes(q)))
+      .sort((a, b) => rank[a.p.difficulty] - rank[b.p.difficulty] || a.i - b.i)
+      .map(({ p }) => p);
+  }, [problems, filter, query]);
+
+  function surprise() {
+    if (!shown.length) return;
+    const pick = shown[Math.floor(Math.random() * shown.length)];
+    setSelected(pick.id);
+    document.getElementById(`problem-${pick.id}`)?.scrollIntoView({ block: "nearest" });
+  }
 
   async function start() {
     if (!selected) return;
@@ -72,9 +88,22 @@ export function Home({ llmReady, onOpenSettings }: { llmReady: boolean; onOpenSe
           </div>
         </div>
 
-        <ul className="problem-list">
+        <div className="row between wrap problem-tools">
+          <label className="search">
+            <Search size={16} aria-hidden />
+            <input type="search" placeholder="Search by name or pattern (e.g. dp, stack)" value={query} onChange={(e) => setQuery(e.target.value)} aria-label="Search problems" />
+          </label>
+          <div className="row gap">
+            <span className="muted small">{shown.length} of {problems.length} problems</span>
+            <button className="ghost" onClick={surprise} disabled={!shown.length}>
+              <Shuffle size={16} aria-hidden /> Random
+            </button>
+          </div>
+        </div>
+
+        <ul className="problem-list scroll">
           {shown.map((p) => (
-            <li key={p.id}>
+            <li key={p.id} id={`problem-${p.id}`}>
               <button className={selected === p.id ? "problem selected" : "problem"} onClick={() => setSelected(p.id)} onDoubleClick={start}>
                 <span className="title">{p.title}</span>
                 <span className="muted small">{p.pattern}</span>
@@ -83,6 +112,7 @@ export function Home({ llmReady, onOpenSettings }: { llmReady: boolean; onOpenSe
             </li>
           ))}
           {!problems.length && !error && <li className="muted">Loading problems...</li>}
+          {problems.length > 0 && !shown.length && <li className="muted">No problems match that search.</li>}
         </ul>
 
         {error && <div className="banner error">{error}</div>}

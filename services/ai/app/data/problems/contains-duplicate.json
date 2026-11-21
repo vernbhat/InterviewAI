@@ -1,0 +1,209 @@
+{
+  "id": "contains-duplicate",
+  "order": 12,
+  "title": "Contains Duplicate",
+  "difficulty": "Easy",
+  "pattern": "Hash set",
+  "statement": "Given an integer array `nums`, return `true` if any value appears at least twice, and `false` if every element is distinct.",
+  "constraints": [
+    "1 <= nums.length <= 10^5",
+    "-10^9 <= nums[i] <= 10^9"
+  ],
+  "function": {
+    "name": "containsDuplicate",
+    "params": [
+      {
+        "name": "nums",
+        "type": "int[]"
+      }
+    ],
+    "returns": "bool"
+  },
+  "complexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "hints": [
+    "Comparing every pair is O(n^2). What could remember values you have already seen?",
+    "A hash set gives O(1) average membership checks.",
+    "Insert each value into a set; if it is already present, return true. Sorting and checking neighbours is the O(1)-extra-space alternative."
+  ],
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          1
+        ]
+      ],
+      "expected": true,
+      "hidden": false,
+      "explanation": "1 appears twice."
+    },
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          4
+        ]
+      ],
+      "expected": false,
+      "hidden": false,
+      "explanation": "All distinct."
+    },
+    {
+      "args": [
+        [
+          1,
+          1,
+          1,
+          3,
+          3,
+          4,
+          3,
+          2,
+          4,
+          2
+        ]
+      ],
+      "expected": true,
+      "hidden": false,
+      "explanation": "Many repeats."
+    },
+    {
+      "args": [
+        [
+          5
+        ]
+      ],
+      "expected": false,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          0,
+          0
+        ]
+      ],
+      "expected": true,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          -1,
+          1
+        ]
+      ],
+      "expected": false,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          1000000000,
+          -1000000000,
+          1000000000
+        ]
+      ],
+      "expected": true,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          52,
+          -4,
+          -31,
+          36,
+          -81,
+          -5,
+          50,
+          44,
+          -7
+        ]
+      ],
+      "expected": false,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          -63,
+          -5,
+          54,
+          -24,
+          -31,
+          -6,
+          8,
+          42
+        ]
+      ],
+      "expected": false,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          18,
+          -7,
+          3,
+          12,
+          -9
+        ]
+      ],
+      "expected": false,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          8,
+          75,
+          13,
+          -100
+        ]
+      ],
+      "expected": false,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          96,
+          28,
+          -29,
+          56,
+          17
+        ]
+      ],
+      "expected": false,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          19,
+          -9,
+          -15,
+          -3,
+          13,
+          -20,
+          -20,
+          -17,
+          11,
+          -20,
+          -7,
+          5
+        ]
+      ],
+      "expected": true,
+      "hidden": true
+    }
+  ]
+}

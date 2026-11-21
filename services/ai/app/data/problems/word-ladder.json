@@ -1,0 +1,232 @@
+{
+  "id": "word-ladder",
+  "order": 61,
+  "title": "Word Ladder",
+  "difficulty": "Hard",
+  "pattern": "BFS on implicit graph",
+  "statement": "Given `beginWord`, `endWord` and a `wordList`, return the number of words in the shortest transformation sequence from `beginWord` to `endWord`, changing one letter at a time, with every intermediate word in `wordList`. Return `0` if no sequence exists.",
+  "constraints": [
+    "1 <= word length <= 10",
+    "1 <= wordList.length <= 5000",
+    "beginWord need not be in wordList"
+  ],
+  "function": {
+    "name": "ladderLength",
+    "params": [
+      {
+        "name": "beginWord",
+        "type": "string"
+      },
+      {
+        "name": "endWord",
+        "type": "string"
+      },
+      {
+        "name": "wordList",
+        "type": "string[]"
+      }
+    ],
+    "returns": "int"
+  },
+  "complexity": {
+    "time": "O(N * L * 26)",
+    "space": "O(N * L)"
+  },
+  "hints": [
+    "Shortest number of steps in an unweighted graph suggests which algorithm?",
+    "Words are nodes; an edge joins two words that differ in exactly one letter. You do not need to build every edge up front.",
+    "BFS from beginWord; for each word try all 26 letters at each position, visiting neighbours that are in the word set."
+  ],
+  "tests": [
+    {
+      "args": [
+        "hit",
+        "cog",
+        [
+          "hot",
+          "dot",
+          "dog",
+          "lot",
+          "log",
+          "cog"
+        ]
+      ],
+      "expected": 5,
+      "hidden": false,
+      "explanation": "hit -> hot -> dot -> dog -> cog: 5 words."
+    },
+    {
+      "args": [
+        "hit",
+        "cog",
+        [
+          "hot",
+          "dot",
+          "dog",
+          "lot",
+          "log"
+        ]
+      ],
+      "expected": 0,
+      "hidden": false,
+      "explanation": "cog is not in the list."
+    },
+    {
+      "args": [
+        "a",
+        "c",
+        [
+          "a",
+          "b",
+          "c"
+        ]
+      ],
+      "expected": 2,
+      "hidden": true
+    },
+    {
+      "args": [
+        "hot",
+        "dog",
+        [
+          "hot",
+          "dog"
+        ]
+      ],
+      "expected": 0,
+      "hidden": true
+    },
+    {
+      "args": [
+        "hot",
+        "dot",
+        [
+          "dot"
+        ]
+      ],
+      "expected": 2,
+      "hidden": true
+    },
+    {
+      "args": [
+        "hot",
+        "hog",
+        [
+          "hog",
+          "dog"
+        ]
+      ],
+      "expected": 2,
+      "hidden": true
+    },
+    {
+      "args": [
+        "cat",
+        "hat",
+        [
+          "cat",
+          "cot",
+          "dig",
+          "dit",
+          "dog",
+          "dot",
+          "hat",
+          "hit",
+          "lot"
+        ]
+      ],
+      "expected": 2,
+      "hidden": true
+    },
+    {
+      "args": [
+        "hit",
+        "cog",
+        [
+          "cog",
+          "dig",
+          "dog",
+          "dot",
+          "hit",
+          "hog",
+          "lit",
+          "log"
+        ]
+      ],
+      "expected": 0,
+      "hidden": true
+    },
+    {
+      "args": [
+        "hit",
+        "hog",
+        [
+          "cog",
+          "dig",
+          "dog",
+          "dot",
+          "hat",
+          "hit",
+          "hog"
+        ]
+      ],
+      "expected": 0,
+      "hidden": true
+    },
+    {
+      "args": [
+        "hot",
+        "lot",
+        [
+          "dig",
+          "dit",
+          "dot",
+          "hat",
+          "hot",
+          "lit",
+          "log",
+          "lot"
+        ]
+      ],
+      "expected": 2,
+      "hidden": true
+    },
+    {
+      "args": [
+        "cat",
+        "cot",
+        [
+          "cog",
+          "cot",
+          "dig",
+          "dot",
+          "hat",
+          "hit",
+          "hog",
+          "lot"
+        ]
+      ],
+      "expected": 2,
+      "hidden": true
+    },
+    {
+      "args": [
+        "cat",
+        "cog",
+        [
+          "cog",
+          "dig",
+          "dit",
+          "dog",
+          "hat",
+          "hit",
+          "hot",
+          "log",
+          "lot"
+        ]
+      ],
+      "expected": 6,
+      "hidden": true
+    }
+  ]
+}

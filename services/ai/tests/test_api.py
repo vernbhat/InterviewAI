@@ -26,7 +26,7 @@ def test_health_and_problem_list(client):
     h = client.get("/api/health").json()
     assert h["status"] == "ok" and h["executor"] == "local" and h["server_llm_key"] is False
     problems = client.get("/api/problems").json()
-    assert len(problems) == 12
+    assert len(problems) >= 60
 
 
 def test_problem_detail_hides_hidden_tests_and_hints(client):

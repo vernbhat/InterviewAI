@@ -1,0 +1,230 @@
+{
+  "id": "find-minimum-in-rotated-sorted-array",
+  "order": 34,
+  "title": "Find Minimum in Rotated Sorted Array",
+  "difficulty": "Medium",
+  "pattern": "Binary search",
+  "statement": "Given a sorted array of distinct integers that has been rotated an unknown number of times, return its minimum element in O(log n).",
+  "constraints": [
+    "1 <= nums.length <= 5000",
+    "Values are distinct"
+  ],
+  "function": {
+    "name": "findMin",
+    "params": [
+      {
+        "name": "nums",
+        "type": "int[]"
+      }
+    ],
+    "returns": "int"
+  },
+  "complexity": {
+    "time": "O(log n)",
+    "space": "O(1)"
+  },
+  "hints": [
+    "Compare nums[mid] with nums[hi]. What does it tell you about where the drop is?",
+    "If nums[mid] > nums[hi], the minimum is strictly to the right of mid.",
+    "lo = mid + 1 when nums[mid] > nums[hi], else hi = mid; loop while lo < hi and return nums[lo]."
+  ],
+  "tests": [
+    {
+      "args": [
+        [
+          3,
+          4,
+          5,
+          1,
+          2
+        ]
+      ],
+      "expected": 1,
+      "hidden": false,
+      "explanation": "Minimum 1."
+    },
+    {
+      "args": [
+        [
+          4,
+          5,
+          6,
+          7,
+          0,
+          1,
+          2
+        ]
+      ],
+      "expected": 0,
+      "hidden": false,
+      "explanation": "Minimum 0."
+    },
+    {
+      "args": [
+        [
+          11,
+          13,
+          15,
+          17
+        ]
+      ],
+      "expected": 11,
+      "hidden": false,
+      "explanation": "Not rotated."
+    },
+    {
+      "args": [
+        [
+          1
+        ]
+      ],
+      "expected": 1,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          2,
+          1
+        ]
+      ],
+      "expected": 1,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          1,
+          2
+        ]
+      ],
+      "expected": 1,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          -5,
+          -3,
+          -10
+        ]
+      ],
+      "expected": -10,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          44,
+          45,
+          -34,
+          -28,
+          -21,
+          -15,
+          -12,
+          -11,
+          -7,
+          4,
+          9,
+          12,
+          24
+        ]
+      ],
+      "expected": -34,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          -30,
+          40,
+          -49,
+          -41
+        ]
+      ],
+      "expected": -49,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          -43,
+          -34,
+          -24,
+          -16,
+          -5,
+          6,
+          10,
+          14,
+          19,
+          22,
+          37,
+          39,
+          47,
+          -49
+        ]
+      ],
+      "expected": -49,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          -21,
+          -11,
+          29,
+          30,
+          34,
+          37,
+          44,
+          45,
+          49,
+          -50,
+          -49,
+          -45,
+          -36,
+          -24
+        ]
+      ],
+      "expected": -50,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          -6,
+          4,
+          7,
+          15,
+          21,
+          27,
+          28,
+          29,
+          -49,
+          -45,
+          -39,
+          -28,
+          -14,
+          -7
+        ]
+      ],
+      "expected": -49,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          -27,
+          -23,
+          -14,
+          -7,
+          22,
+          24,
+          40
+        ]
+      ],
+      "expected": -27,
+      "hidden": true
+    }
+  ]
+}

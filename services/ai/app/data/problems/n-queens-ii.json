@@ -1,0 +1,97 @@
+{
+  "id": "n-queens-ii",
+  "order": 58,
+  "title": "N-Queens II",
+  "difficulty": "Hard",
+  "pattern": "Backtracking",
+  "statement": "Return the number of ways to place `n` queens on an `n x n` chessboard so that no two queens attack each other.",
+  "constraints": [
+    "1 <= n <= 9"
+  ],
+  "function": {
+    "name": "totalNQueens",
+    "params": [
+      {
+        "name": "n",
+        "type": "int"
+      }
+    ],
+    "returns": "int"
+  },
+  "complexity": {
+    "time": "O(n!)",
+    "space": "O(n)"
+  },
+  "hints": [
+    "Each row holds exactly one queen, so place them row by row.",
+    "A placement is attacked through its column or one of its two diagonals. How can you check that in O(1)?",
+    "Backtrack with sets (or bitmasks) for columns, r - c diagonals and r + c diagonals."
+  ],
+  "tests": [
+    {
+      "args": [
+        4
+      ],
+      "expected": 2,
+      "hidden": false,
+      "explanation": "2 solutions."
+    },
+    {
+      "args": [
+        1
+      ],
+      "expected": 1,
+      "hidden": false,
+      "explanation": "1 solution."
+    },
+    {
+      "args": [
+        2
+      ],
+      "expected": 0,
+      "hidden": true
+    },
+    {
+      "args": [
+        3
+      ],
+      "expected": 0,
+      "hidden": true
+    },
+    {
+      "args": [
+        8
+      ],
+      "expected": 92,
+      "hidden": true
+    },
+    {
+      "args": [
+        9
+      ],
+      "expected": 352,
+      "hidden": true
+    },
+    {
+      "args": [
+        7
+      ],
+      "expected": 40,
+      "hidden": true
+    },
+    {
+      "args": [
+        6
+      ],
+      "expected": 4,
+      "hidden": true
+    },
+    {
+      "args": [
+        5
+      ],
+      "expected": 10,
+      "hidden": true
+    }
+  ]
+}

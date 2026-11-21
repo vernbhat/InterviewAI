@@ -1,0 +1,229 @@
+{
+  "id": "search-in-rotated-sorted-array",
+  "order": 33,
+  "title": "Search in Rotated Sorted Array",
+  "difficulty": "Medium",
+  "pattern": "Binary search",
+  "statement": "A sorted array of distinct integers was rotated at an unknown pivot (for example `[0,1,2,4,5,6,7]` became `[4,5,6,7,0,1,2]`). Return the index of `target` in `nums`, or `-1`, in O(log n).",
+  "constraints": [
+    "1 <= nums.length <= 5000",
+    "Values are distinct"
+  ],
+  "function": {
+    "name": "search",
+    "params": [
+      {
+        "name": "nums",
+        "type": "int[]"
+      },
+      {
+        "name": "target",
+        "type": "int"
+      }
+    ],
+    "returns": "int"
+  },
+  "complexity": {
+    "time": "O(log n)",
+    "space": "O(1)"
+  },
+  "hints": [
+    "After picking mid, at least one half [lo, mid] or [mid, hi] is sorted. How can you tell which?",
+    "If target lies inside the sorted half's range, search there; otherwise search the other half.",
+    "If nums[lo] <= nums[mid], the left half is sorted: go left when nums[lo] <= target < nums[mid]. Otherwise mirror that on the right."
+  ],
+  "tests": [
+    {
+      "args": [
+        [
+          4,
+          5,
+          6,
+          7,
+          0,
+          1,
+          2
+        ],
+        0
+      ],
+      "expected": 4,
+      "hidden": false,
+      "explanation": "0 is at index 4."
+    },
+    {
+      "args": [
+        [
+          4,
+          5,
+          6,
+          7,
+          0,
+          1,
+          2
+        ],
+        3
+      ],
+      "expected": -1,
+      "hidden": false,
+      "explanation": "3 is absent."
+    },
+    {
+      "args": [
+        [
+          1
+        ],
+        0
+      ],
+      "expected": -1,
+      "hidden": false,
+      "explanation": "Absent."
+    },
+    {
+      "args": [
+        [
+          1
+        ],
+        1
+      ],
+      "expected": 0,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          3,
+          1
+        ],
+        1
+      ],
+      "expected": 1,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          5,
+          1,
+          3
+        ],
+        5
+      ],
+      "expected": 0,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          1,
+          3
+        ],
+        3
+      ],
+      "expected": 1,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          -23,
+          -13,
+          14,
+          15,
+          45,
+          -26
+        ],
+        -23
+      ],
+      "expected": 0,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          43,
+          -35,
+          -17,
+          13
+        ],
+        -46
+      ],
+      "expected": -1,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          -19,
+          1,
+          16,
+          23,
+          29,
+          -50,
+          -40,
+          -37
+        ],
+        29
+      ],
+      "expected": 4,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          -48,
+          -47,
+          -30,
+          -25,
+          -19,
+          20,
+          35,
+          -50
+        ],
+        20
+      ],
+      "expected": 5,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          10,
+          12,
+          18,
+          26,
+          45,
+          -44,
+          -34,
+          -32,
+          -18,
+          -7,
+          -3,
+          8
+        ],
+        -3
+      ],
+      "expected": 10,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          44,
+          49,
+          -48,
+          -47,
+          -39,
+          -27,
+          -26,
+          -17,
+          21,
+          27,
+          28
+        ],
+        -47
+      ],
+      "expected": 3,
+      "hidden": true
+    }
+  ]
+}

@@ -1,0 +1,135 @@
+{
+  "id": "valid-anagram",
+  "order": 13,
+  "title": "Valid Anagram",
+  "difficulty": "Easy",
+  "pattern": "Counting",
+  "statement": "Given two strings `s` and `t`, return `true` if `t` is an anagram of `s` (same letters with the same counts, in any order).",
+  "constraints": [
+    "1 <= s.length, t.length <= 5 * 10^4",
+    "Lowercase English letters"
+  ],
+  "function": {
+    "name": "isAnagram",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      },
+      {
+        "name": "t",
+        "type": "string"
+      }
+    ],
+    "returns": "bool"
+  },
+  "complexity": {
+    "time": "O(n)",
+    "space": "O(1) (26 counters)"
+  },
+  "hints": [
+    "If the lengths differ, can they be anagrams?",
+    "Count how many times each letter appears in each string.",
+    "Use one array of 26 counters: increment for s, decrement for t, and check that every counter ends at zero."
+  ],
+  "tests": [
+    {
+      "args": [
+        "anagram",
+        "nagaram"
+      ],
+      "expected": true,
+      "hidden": false,
+      "explanation": "Same letters, same counts."
+    },
+    {
+      "args": [
+        "rat",
+        "car"
+      ],
+      "expected": false,
+      "hidden": false,
+      "explanation": "Different letters."
+    },
+    {
+      "args": [
+        "a",
+        "a"
+      ],
+      "expected": true,
+      "hidden": true
+    },
+    {
+      "args": [
+        "a",
+        "b"
+      ],
+      "expected": false,
+      "hidden": true
+    },
+    {
+      "args": [
+        "ab",
+        "a"
+      ],
+      "expected": false,
+      "hidden": true
+    },
+    {
+      "args": [
+        "aacc",
+        "ccac"
+      ],
+      "expected": false,
+      "hidden": true
+    },
+    {
+      "args": [
+        "bbbbdd",
+        "bdbdbb"
+      ],
+      "expected": true,
+      "hidden": true
+    },
+    {
+      "args": [
+        "eebb",
+        "ebbe"
+      ],
+      "expected": true,
+      "hidden": true
+    },
+    {
+      "args": [
+        "dbeeec",
+        "ccad"
+      ],
+      "expected": false,
+      "hidden": true
+    },
+    {
+      "args": [
+        "b",
+        "b"
+      ],
+      "expected": true,
+      "hidden": true
+    },
+    {
+      "args": [
+        "cacab",
+        "aacbc"
+      ],
+      "expected": true,
+      "hidden": true
+    },
+    {
+      "args": [
+        "abea",
+        "eccdaccd"
+      ],
+      "expected": false,
+      "hidden": true
+    }
+  ]
+}

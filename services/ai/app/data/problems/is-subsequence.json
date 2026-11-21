@@ -1,0 +1,143 @@
+{
+  "id": "is-subsequence",
+  "order": 25,
+  "title": "Is Subsequence",
+  "difficulty": "Easy",
+  "pattern": "Two pointers",
+  "statement": "Given strings `s` and `t`, return `true` if `s` is a subsequence of `t`: it can be formed by deleting some (or no) characters of `t` without reordering the rest.",
+  "constraints": [
+    "0 <= s.length <= 100",
+    "0 <= t.length <= 10^4"
+  ],
+  "function": {
+    "name": "isSubsequence",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      },
+      {
+        "name": "t",
+        "type": "string"
+      }
+    ],
+    "returns": "bool"
+  },
+  "complexity": {
+    "time": "O(|t|)",
+    "space": "O(1)"
+  },
+  "hints": [
+    "Is it always safe to match the earliest possible character in t?",
+    "Greedy matching works: walk through t once.",
+    "Keep a pointer into s; advance it whenever t's current char matches. s is a subsequence if the pointer reaches the end."
+  ],
+  "tests": [
+    {
+      "args": [
+        "abc",
+        "ahbgdc"
+      ],
+      "expected": true,
+      "hidden": false,
+      "explanation": "a, b, c appear in order."
+    },
+    {
+      "args": [
+        "axc",
+        "ahbgdc"
+      ],
+      "expected": false,
+      "hidden": false,
+      "explanation": "There is no x."
+    },
+    {
+      "args": [
+        "",
+        ""
+      ],
+      "expected": true,
+      "hidden": true
+    },
+    {
+      "args": [
+        "",
+        "abc"
+      ],
+      "expected": true,
+      "hidden": true
+    },
+    {
+      "args": [
+        "a",
+        ""
+      ],
+      "expected": false,
+      "hidden": true
+    },
+    {
+      "args": [
+        "aa",
+        "a"
+      ],
+      "expected": false,
+      "hidden": true
+    },
+    {
+      "args": [
+        "abc",
+        "abc"
+      ],
+      "expected": true,
+      "hidden": true
+    },
+    {
+      "args": [
+        "c",
+        "bb"
+      ],
+      "expected": false,
+      "hidden": true
+    },
+    {
+      "args": [
+        "",
+        "bb"
+      ],
+      "expected": true,
+      "hidden": true
+    },
+    {
+      "args": [
+        "cbabb",
+        "cbcaabcb"
+      ],
+      "expected": true,
+      "hidden": true
+    },
+    {
+      "args": [
+        "bac",
+        "bccbabcbccbc"
+      ],
+      "expected": true,
+      "hidden": true
+    },
+    {
+      "args": [
+        "ccca",
+        "bcbbbaacb"
+      ],
+      "expected": false,
+      "hidden": true
+    },
+    {
+      "args": [
+        "aaaa",
+        "aabaaaa"
+      ],
+      "expected": true,
+      "hidden": true
+    }
+  ]
+}

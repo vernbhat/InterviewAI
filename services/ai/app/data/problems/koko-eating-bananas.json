@@ -1,0 +1,208 @@
+{
+  "id": "koko-eating-bananas",
+  "order": 50,
+  "title": "Koko Eating Bananas",
+  "difficulty": "Medium",
+  "pattern": "Binary search on the answer",
+  "statement": "Koko has `piles` of bananas and `h` hours. Each hour she picks one pile and eats up to `k` bananas from it. Return the minimum integer speed `k` that lets her finish within `h` hours.",
+  "constraints": [
+    "1 <= piles.length <= 10^4",
+    "piles.length <= h <= 10^9",
+    "1 <= piles[i] <= 10^9"
+  ],
+  "function": {
+    "name": "minEatingSpeed",
+    "params": [
+      {
+        "name": "piles",
+        "type": "int[]"
+      },
+      {
+        "name": "h",
+        "type": "int"
+      }
+    ],
+    "returns": "int"
+  },
+  "complexity": {
+    "time": "O(n log max)",
+    "space": "O(1)"
+  },
+  "hints": [
+    "If speed k works, does every faster speed work too?",
+    "That monotonicity lets you binary-search k between 1 and max(piles).",
+    "hours(k) = sum(ceil(p / k)); find the smallest k with hours(k) <= h. Watch for overflow in the sum."
+  ],
+  "tests": [
+    {
+      "args": [
+        [
+          3,
+          6,
+          7,
+          11
+        ],
+        8
+      ],
+      "expected": 4,
+      "hidden": false,
+      "explanation": "Speed 4."
+    },
+    {
+      "args": [
+        [
+          30,
+          11,
+          23,
+          4,
+          20
+        ],
+        5
+      ],
+      "expected": 30,
+      "hidden": false,
+      "explanation": "Speed 30."
+    },
+    {
+      "args": [
+        [
+          30,
+          11,
+          23,
+          4,
+          20
+        ],
+        6
+      ],
+      "expected": 23,
+      "hidden": false,
+      "explanation": "Speed 23."
+    },
+    {
+      "args": [
+        [
+          1
+        ],
+        1
+      ],
+      "expected": 1,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          5
+        ],
+        10
+      ],
+      "expected": 1,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          2,
+          2
+        ],
+        2
+      ],
+      "expected": 2,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          1000000000
+        ],
+        2
+      ],
+      "expected": 500000000,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          7,
+          24,
+          22,
+          35,
+          17
+        ],
+        18
+      ],
+      "expected": 7,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          4,
+          20,
+          30,
+          31
+        ],
+        16
+      ],
+      "expected": 6,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          24,
+          27,
+          36,
+          17,
+          10,
+          2,
+          3
+        ],
+        19
+      ],
+      "expected": 8,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          11,
+          3,
+          33,
+          11,
+          39,
+          17,
+          28
+        ],
+        23
+      ],
+      "expected": 7,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          20,
+          4,
+          36,
+          10
+        ],
+        4
+      ],
+      "expected": 36,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          8,
+          25,
+          35,
+          12
+        ],
+        15
+      ],
+      "expected": 6,
+      "hidden": true
+    }
+  ]
+}

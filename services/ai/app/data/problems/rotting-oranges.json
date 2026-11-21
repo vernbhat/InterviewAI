@@ -1,0 +1,292 @@
+{
+  "id": "rotting-oranges",
+  "order": 46,
+  "title": "Rotting Oranges",
+  "difficulty": "Medium",
+  "pattern": "Multi-source BFS",
+  "statement": "In a grid, `0` is empty, `1` is a fresh orange and `2` is a rotten one. Each minute, fresh oranges next to a rotten one (up, down, left, right) become rotten. Return the minutes until no fresh orange remains, or `-1` if that never happens.",
+  "constraints": [
+    "1 <= m, n <= 10",
+    "grid[i][j] is 0, 1 or 2"
+  ],
+  "function": {
+    "name": "orangesRotting",
+    "params": [
+      {
+        "name": "grid",
+        "type": "int[][]"
+      }
+    ],
+    "returns": "int"
+  },
+  "complexity": {
+    "time": "O(m * n)",
+    "space": "O(m * n)"
+  },
+  "hints": [
+    "The rot spreads from all rotten oranges at the same time.",
+    "Start a BFS with every rotten orange in the queue; each BFS level is one minute.",
+    "Count fresh oranges, BFS level by level decrementing the count, and return -1 if any remain."
+  ],
+  "tests": [
+    {
+      "args": [
+        [
+          [
+            2,
+            1,
+            1
+          ],
+          [
+            1,
+            1,
+            0
+          ],
+          [
+            0,
+            1,
+            1
+          ]
+        ]
+      ],
+      "expected": 4,
+      "hidden": false,
+      "explanation": "4 minutes."
+    },
+    {
+      "args": [
+        [
+          [
+            2,
+            1,
+            1
+          ],
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            1,
+            0,
+            1
+          ]
+        ]
+      ],
+      "expected": -1,
+      "hidden": false,
+      "explanation": "The bottom-left orange is never reached."
+    },
+    {
+      "args": [
+        [
+          [
+            0,
+            2
+          ]
+        ]
+      ],
+      "expected": 0,
+      "hidden": false,
+      "explanation": "No fresh oranges, so 0."
+    },
+    {
+      "args": [
+        [
+          [
+            0
+          ]
+        ]
+      ],
+      "expected": 0,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          [
+            1
+          ]
+        ]
+      ],
+      "expected": -1,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          [
+            2
+          ]
+        ]
+      ],
+      "expected": 0,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          [
+            2,
+            1,
+            0,
+            1
+          ]
+        ]
+      ],
+      "expected": -1,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          [
+            1,
+            2,
+            1
+          ]
+        ]
+      ],
+      "expected": 1,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          [
+            2,
+            1,
+            2
+          ],
+          [
+            1,
+            0,
+            1
+          ],
+          [
+            2,
+            1,
+            1
+          ]
+        ]
+      ],
+      "expected": 2,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          [
+            2,
+            2,
+            1
+          ],
+          [
+            0,
+            1,
+            2
+          ],
+          [
+            1,
+            0,
+            1
+          ],
+          [
+            1,
+            1,
+            1
+          ],
+          [
+            0,
+            0,
+            0
+          ]
+        ]
+      ],
+      "expected": 5,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          [
+            2,
+            1,
+            0,
+            2,
+            1
+          ]
+        ]
+      ],
+      "expected": 1,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          [
+            0
+          ],
+          [
+            1
+          ]
+        ]
+      ],
+      "expected": -1,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          [
+            1
+          ],
+          [
+            1
+          ],
+          [
+            2
+          ],
+          [
+            1
+          ]
+        ]
+      ],
+      "expected": 2,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          [
+            2,
+            1,
+            1
+          ],
+          [
+            1,
+            1,
+            1
+          ],
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            2,
+            1,
+            0
+          ],
+          [
+            1,
+            2,
+            1
+          ]
+        ]
+      ],
+      "expected": 3,
+      "hidden": true
+    }
+  ]
+}

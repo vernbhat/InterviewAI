@@ -1,0 +1,214 @@
+{
+  "id": "missing-number",
+  "order": 19,
+  "title": "Missing Number",
+  "difficulty": "Easy",
+  "pattern": "Math / XOR",
+  "statement": "Given an array `nums` of `n` distinct numbers taken from the range `[0, n]`, return the one number in the range that is missing.",
+  "constraints": [
+    "1 <= n <= 10^4",
+    "All values are distinct"
+  ],
+  "function": {
+    "name": "missingNumber",
+    "params": [
+      {
+        "name": "nums",
+        "type": "int[]"
+      }
+    ],
+    "returns": "int"
+  },
+  "complexity": {
+    "time": "O(n)",
+    "space": "O(1)"
+  },
+  "hints": [
+    "What would the sum of 0..n be if nothing were missing?",
+    "Expected sum minus actual sum gives the answer. XOR works too.",
+    "Return n*(n+1)/2 - sum(nums), or XOR every index and value together."
+  ],
+  "tests": [
+    {
+      "args": [
+        [
+          3,
+          0,
+          1
+        ]
+      ],
+      "expected": 2,
+      "hidden": false,
+      "explanation": "n = 3, and 2 is missing."
+    },
+    {
+      "args": [
+        [
+          0,
+          1
+        ]
+      ],
+      "expected": 2,
+      "hidden": false,
+      "explanation": "n = 2, and 2 is missing."
+    },
+    {
+      "args": [
+        [
+          9,
+          6,
+          4,
+          2,
+          3,
+          5,
+          7,
+          0,
+          1
+        ]
+      ],
+      "expected": 8,
+      "hidden": false,
+      "explanation": "8 is missing."
+    },
+    {
+      "args": [
+        [
+          0
+        ]
+      ],
+      "expected": 1,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          1
+        ]
+      ],
+      "expected": 0,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          1,
+          2
+        ]
+      ],
+      "expected": 0,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          2,
+          0
+        ]
+      ],
+      "expected": 1,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          0,
+          6,
+          3,
+          4,
+          1,
+          2
+        ]
+      ],
+      "expected": 5,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          6,
+          5,
+          2,
+          4,
+          0,
+          3
+        ]
+      ],
+      "expected": 1,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          3,
+          2,
+          1
+        ]
+      ],
+      "expected": 0,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          4,
+          11,
+          0,
+          5,
+          10,
+          15,
+          7,
+          3,
+          14,
+          9,
+          6,
+          8,
+          2,
+          1,
+          13
+        ]
+      ],
+      "expected": 12,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          11,
+          2,
+          5,
+          4,
+          12,
+          10,
+          9,
+          13,
+          14,
+          1,
+          6,
+          8,
+          0,
+          3
+        ]
+      ],
+      "expected": 7,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          2,
+          5,
+          9,
+          8,
+          3,
+          1,
+          6,
+          7,
+          10,
+          4
+        ]
+      ],
+      "expected": 0,
+      "hidden": true
+    }
+  ]
+}

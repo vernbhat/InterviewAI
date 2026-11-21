@@ -1,0 +1,221 @@
+{
+  "id": "longest-increasing-subsequence",
+  "order": 36,
+  "title": "Longest Increasing Subsequence",
+  "difficulty": "Medium",
+  "pattern": "DP + binary search",
+  "statement": "Given an integer array `nums`, return the length of the longest strictly increasing subsequence.",
+  "constraints": [
+    "1 <= nums.length <= 2500",
+    "-10^4 <= nums[i] <= 10^4"
+  ],
+  "function": {
+    "name": "lengthOfLIS",
+    "params": [
+      {
+        "name": "nums",
+        "type": "int[]"
+      }
+    ],
+    "returns": "int"
+  },
+  "complexity": {
+    "time": "O(n log n)",
+    "space": "O(n)"
+  },
+  "hints": [
+    "O(n^2) DP: lis[i] = 1 + max(lis[j]) over j < i with nums[j] < nums[i].",
+    "For the O(n log n) version, keep the smallest possible tail for each subsequence length.",
+    "Maintain a sorted 'tails' array; binary-search the first tail >= x and replace it (or append). Its length is the answer."
+  ],
+  "tests": [
+    {
+      "args": [
+        [
+          10,
+          9,
+          2,
+          5,
+          3,
+          7,
+          101,
+          18
+        ]
+      ],
+      "expected": 4,
+      "hidden": false,
+      "explanation": "[2,3,7,101], length 4."
+    },
+    {
+      "args": [
+        [
+          0,
+          1,
+          0,
+          3,
+          2,
+          3
+        ]
+      ],
+      "expected": 4,
+      "hidden": false,
+      "explanation": "Length 4."
+    },
+    {
+      "args": [
+        [
+          7,
+          7,
+          7,
+          7
+        ]
+      ],
+      "expected": 1,
+      "hidden": false,
+      "explanation": "Strictly increasing, so 1."
+    },
+    {
+      "args": [
+        [
+          1
+        ]
+      ],
+      "expected": 1,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          2,
+          1
+        ]
+      ],
+      "expected": 1,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          1,
+          2
+        ]
+      ],
+      "expected": 2,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          4,
+          10,
+          4,
+          3,
+          8,
+          9
+        ]
+      ],
+      "expected": 3,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          4,
+          -2,
+          2,
+          -10,
+          3
+        ]
+      ],
+      "expected": 3,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          2,
+          -5,
+          -8,
+          1,
+          10,
+          0,
+          -7,
+          7,
+          -6,
+          -2,
+          -2
+        ]
+      ],
+      "expected": 4,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          -9,
+          9,
+          -9,
+          -1,
+          -3,
+          0,
+          -2,
+          4,
+          -9
+        ]
+      ],
+      "expected": 4,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          -2,
+          -1,
+          -1,
+          -2,
+          10,
+          9,
+          3,
+          -7,
+          9,
+          -4,
+          -10,
+          -6,
+          4,
+          8,
+          7,
+          1,
+          6
+        ]
+      ],
+      "expected": 5,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          9,
+          8,
+          -2,
+          8,
+          -9,
+          -5,
+          -6,
+          4
+        ]
+      ],
+      "expected": 3,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          -3,
+          1
+        ]
+      ],
+      "expected": 2,
+      "hidden": true
+    }
+  ]
+}

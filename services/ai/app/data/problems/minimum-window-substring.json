@@ -1,0 +1,152 @@
+{
+  "id": "minimum-window-substring",
+  "order": 54,
+  "title": "Minimum Window Substring",
+  "difficulty": "Hard",
+  "pattern": "Sliding window",
+  "statement": "Given strings `s` and `t`, return the shortest substring of `s` that contains every character of `t` (with multiplicity). If several are equally short, return the leftmost. Return an empty string if none exists.",
+  "constraints": [
+    "1 <= s.length, t.length <= 10^5",
+    "English letters"
+  ],
+  "function": {
+    "name": "minWindow",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      },
+      {
+        "name": "t",
+        "type": "string"
+      }
+    ],
+    "returns": "string"
+  },
+  "complexity": {
+    "time": "O(|s| + |t|)",
+    "space": "O(alphabet)"
+  },
+  "hints": [
+    "Checking every substring is far too slow. Can you reuse one window as it slides?",
+    "Expand the right edge until the window covers t, then shrink the left edge while it still covers t.",
+    "Keep a count of needed characters and a 'missing' total; update the best window each time missing hits 0 while shrinking."
+  ],
+  "tests": [
+    {
+      "args": [
+        "ADOBECODEBANC",
+        "ABC"
+      ],
+      "expected": "BANC",
+      "hidden": false,
+      "explanation": "\"BANC\"."
+    },
+    {
+      "args": [
+        "a",
+        "a"
+      ],
+      "expected": "a",
+      "hidden": false,
+      "explanation": "\"a\"."
+    },
+    {
+      "args": [
+        "a",
+        "aa"
+      ],
+      "expected": "",
+      "hidden": false,
+      "explanation": "s has only one 'a'."
+    },
+    {
+      "args": [
+        "ab",
+        "b"
+      ],
+      "expected": "b",
+      "hidden": true
+    },
+    {
+      "args": [
+        "abc",
+        "d"
+      ],
+      "expected": "",
+      "hidden": true
+    },
+    {
+      "args": [
+        "aa",
+        "aa"
+      ],
+      "expected": "aa",
+      "hidden": true
+    },
+    {
+      "args": [
+        "bba",
+        "ab"
+      ],
+      "expected": "ba",
+      "hidden": true
+    },
+    {
+      "args": [
+        "cabwefgewcwaefgcf",
+        "cae"
+      ],
+      "expected": "cwae",
+      "hidden": true
+    },
+    {
+      "args": [
+        "bcdb",
+        "c"
+      ],
+      "expected": "c",
+      "hidden": true
+    },
+    {
+      "args": [
+        "abbaaababababb",
+        "aa"
+      ],
+      "expected": "aa",
+      "hidden": true
+    },
+    {
+      "args": [
+        "aaba",
+        "baa"
+      ],
+      "expected": "aab",
+      "hidden": true
+    },
+    {
+      "args": [
+        "bbcabcbcbacbbc",
+        "bb"
+      ],
+      "expected": "bb",
+      "hidden": true
+    },
+    {
+      "args": [
+        "abbabaccaaaacb",
+        "bcca"
+      ],
+      "expected": "bacc",
+      "hidden": true
+    },
+    {
+      "args": [
+        "c",
+        "ca"
+      ],
+      "expected": "",
+      "hidden": true
+    }
+  ]
+}

@@ -1,0 +1,153 @@
+{
+  "id": "regular-expression-matching",
+  "order": 59,
+  "title": "Regular Expression Matching",
+  "difficulty": "Hard",
+  "pattern": "2D dynamic programming",
+  "statement": "Implement matching of the whole string `s` against pattern `p`, where `.` matches any single character and `*` matches zero or more of the element before it.",
+  "constraints": [
+    "0 <= s.length <= 20",
+    "0 <= p.length <= 20",
+    "Every '*' follows a valid character"
+  ],
+  "function": {
+    "name": "isMatch",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      },
+      {
+        "name": "p",
+        "type": "string"
+      }
+    ],
+    "returns": "bool"
+  },
+  "complexity": {
+    "time": "O(m * n)",
+    "space": "O(m * n)"
+  },
+  "hints": [
+    "The hard part is '*'. It can match zero copies or one more copy.",
+    "Let dp[i][j] mean s[:i] matches p[:j]. What are the cases when p[j-1] == '*'?",
+    "For '*': dp[i][j] = dp[i][j-2] (zero copies) or (p[j-2] matches s[i-1] and dp[i-1][j]). Otherwise compare one character."
+  ],
+  "tests": [
+    {
+      "args": [
+        "aa",
+        "a"
+      ],
+      "expected": false,
+      "hidden": false,
+      "explanation": "The pattern is too short."
+    },
+    {
+      "args": [
+        "aa",
+        "a*"
+      ],
+      "expected": true,
+      "hidden": false,
+      "explanation": "a* covers both."
+    },
+    {
+      "args": [
+        "ab",
+        ".*"
+      ],
+      "expected": true,
+      "hidden": false,
+      "explanation": ".* matches anything."
+    },
+    {
+      "args": [
+        "",
+        ""
+      ],
+      "expected": true,
+      "hidden": true
+    },
+    {
+      "args": [
+        "",
+        "a*"
+      ],
+      "expected": true,
+      "hidden": true
+    },
+    {
+      "args": [
+        "",
+        "."
+      ],
+      "expected": false,
+      "hidden": true
+    },
+    {
+      "args": [
+        "aab",
+        "c*a*b"
+      ],
+      "expected": true,
+      "hidden": true
+    },
+    {
+      "args": [
+        "mississippi",
+        "mis*is*p*."
+      ],
+      "expected": false,
+      "hidden": true
+    },
+    {
+      "args": [
+        "ababb",
+        ""
+      ],
+      "expected": false,
+      "hidden": true
+    },
+    {
+      "args": [
+        "aaaabb",
+        ".*a"
+      ],
+      "expected": false,
+      "hidden": true
+    },
+    {
+      "args": [
+        "aa",
+        "ab.*b*."
+      ],
+      "expected": false,
+      "hidden": true
+    },
+    {
+      "args": [
+        "aabb",
+        ""
+      ],
+      "expected": false,
+      "hidden": true
+    },
+    {
+      "args": [
+        "bbabaa",
+        ""
+      ],
+      "expected": false,
+      "hidden": true
+    },
+    {
+      "args": [
+        "baa",
+        ""
+      ],
+      "expected": false,
+      "hidden": true
+    }
+  ]
+}

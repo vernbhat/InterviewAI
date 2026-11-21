@@ -1,0 +1,144 @@
+{
+  "id": "longest-common-subsequence",
+  "order": 42,
+  "title": "Longest Common Subsequence",
+  "difficulty": "Medium",
+  "pattern": "2D dynamic programming",
+  "statement": "Given strings `text1` and `text2`, return the length of their longest common subsequence, or `0` if they share none.",
+  "constraints": [
+    "1 <= text1.length, text2.length <= 1000",
+    "Lowercase English letters"
+  ],
+  "function": {
+    "name": "longestCommonSubsequence",
+    "params": [
+      {
+        "name": "text1",
+        "type": "string"
+      },
+      {
+        "name": "text2",
+        "type": "string"
+      }
+    ],
+    "returns": "int"
+  },
+  "complexity": {
+    "time": "O(m * n)",
+    "space": "O(n)"
+  },
+  "hints": [
+    "Look at the last characters of both strings. Match or no match?",
+    "dp[i][j] = dp[i-1][j-1] + 1 on a match, else max(dp[i-1][j], dp[i][j-1]).",
+    "Fill the table row by row; one rolling row is enough."
+  ],
+  "tests": [
+    {
+      "args": [
+        "abcde",
+        "ace"
+      ],
+      "expected": 3,
+      "hidden": false,
+      "explanation": "\"ace\"."
+    },
+    {
+      "args": [
+        "abc",
+        "abc"
+      ],
+      "expected": 3,
+      "hidden": false,
+      "explanation": "3."
+    },
+    {
+      "args": [
+        "abc",
+        "def"
+      ],
+      "expected": 0,
+      "hidden": false,
+      "explanation": "0."
+    },
+    {
+      "args": [
+        "a",
+        "a"
+      ],
+      "expected": 1,
+      "hidden": true
+    },
+    {
+      "args": [
+        "a",
+        "b"
+      ],
+      "expected": 0,
+      "hidden": true
+    },
+    {
+      "args": [
+        "ab",
+        "ba"
+      ],
+      "expected": 1,
+      "hidden": true
+    },
+    {
+      "args": [
+        "bsbininm",
+        "jmjkbkjkv"
+      ],
+      "expected": 1,
+      "hidden": true
+    },
+    {
+      "args": [
+        "bb",
+        "aaabbabbb"
+      ],
+      "expected": 2,
+      "hidden": true
+    },
+    {
+      "args": [
+        "ddaceecccc",
+        "ceeeffd"
+      ],
+      "expected": 3,
+      "hidden": true
+    },
+    {
+      "args": [
+        "baabaaaba",
+        "ababaab"
+      ],
+      "expected": 6,
+      "hidden": true
+    },
+    {
+      "args": [
+        "abbabbabab",
+        "abbbabab"
+      ],
+      "expected": 8,
+      "hidden": true
+    },
+    {
+      "args": [
+        "c",
+        "acbbcb"
+      ],
+      "expected": 1,
+      "hidden": true
+    },
+    {
+      "args": [
+        "aaccabbacc",
+        "cccaaabca"
+      ],
+      "expected": 5,
+      "hidden": true
+    }
+  ]
+}

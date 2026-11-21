@@ -1,0 +1,282 @@
+{
+  "id": "sliding-window-maximum",
+  "order": 55,
+  "title": "Sliding Window Maximum",
+  "difficulty": "Hard",
+  "pattern": "Monotonic deque",
+  "statement": "Given an integer array `nums` and a window size `k`, return the maximum of each window of size `k` as it slides from left to right.",
+  "constraints": [
+    "1 <= k <= nums.length <= 10^5",
+    "-10^4 <= nums[i] <= 10^4"
+  ],
+  "function": {
+    "name": "maxSlidingWindow",
+    "params": [
+      {
+        "name": "nums",
+        "type": "int[]"
+      },
+      {
+        "name": "k",
+        "type": "int"
+      }
+    ],
+    "returns": "int[]"
+  },
+  "complexity": {
+    "time": "O(n)",
+    "space": "O(k)"
+  },
+  "hints": [
+    "A heap gives O(n log n). Which elements can never be a future maximum?",
+    "Once a larger element arrives, smaller elements before it are useless.",
+    "Keep a deque of indices with decreasing values: pop smaller values from the back, drop the front when it leaves the window, and read the max from the front."
+  ],
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          3,
+          -1,
+          -3,
+          5,
+          3,
+          6,
+          7
+        ],
+        3
+      ],
+      "expected": [
+        3,
+        3,
+        5,
+        5,
+        6,
+        7
+      ],
+      "hidden": false,
+      "explanation": "[3,3,5,5,6,7]."
+    },
+    {
+      "args": [
+        [
+          1
+        ],
+        1
+      ],
+      "expected": [
+        1
+      ],
+      "hidden": false,
+      "explanation": "[1]."
+    },
+    {
+      "args": [
+        [
+          9,
+          8,
+          7,
+          6
+        ],
+        2
+      ],
+      "expected": [
+        9,
+        8,
+        7
+      ],
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          4
+        ],
+        2
+      ],
+      "expected": [
+        2,
+        3,
+        4
+      ],
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          4,
+          4,
+          4
+        ],
+        3
+      ],
+      "expected": [
+        4
+      ],
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          -1,
+          -2
+        ],
+        1
+      ],
+      "expected": [
+        -1,
+        -2
+      ],
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          6,
+          8,
+          -2,
+          -2,
+          -10,
+          1,
+          -3,
+          -10,
+          6,
+          10,
+          6,
+          -9
+        ],
+        5
+      ],
+      "expected": [
+        8,
+        8,
+        1,
+        1,
+        6,
+        10,
+        10,
+        10
+      ],
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          9,
+          -6,
+          -7,
+          0,
+          7,
+          3,
+          2,
+          -5,
+          -3
+        ],
+        4
+      ],
+      "expected": [
+        9,
+        7,
+        7,
+        7,
+        7,
+        3
+      ],
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          -5,
+          -7,
+          -5,
+          -1,
+          9,
+          4,
+          8,
+          2,
+          -6,
+          4,
+          9,
+          2,
+          7
+        ],
+        9
+      ],
+      "expected": [
+        9,
+        9,
+        9,
+        9,
+        9
+      ],
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          -4,
+          -6,
+          -6,
+          5,
+          0,
+          7
+        ],
+        3
+      ],
+      "expected": [
+        -4,
+        5,
+        5,
+        7
+      ],
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          2,
+          -8,
+          -1,
+          2,
+          1,
+          -3,
+          1,
+          -8,
+          -4
+        ],
+        8
+      ],
+      "expected": [
+        2,
+        2
+      ],
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          5,
+          -6,
+          2,
+          3,
+          4,
+          10,
+          -4,
+          -2
+        ],
+        6
+      ],
+      "expected": [
+        10,
+        10,
+        10
+      ],
+      "hidden": true
+    }
+  ]
+}

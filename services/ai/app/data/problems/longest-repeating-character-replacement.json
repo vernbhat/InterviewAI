@@ -1,0 +1,135 @@
+{
+  "id": "longest-repeating-character-replacement",
+  "order": 51,
+  "title": "Longest Repeating Character Replacement",
+  "difficulty": "Medium",
+  "pattern": "Sliding window",
+  "statement": "Given an uppercase string `s` and an integer `k`, you may change at most `k` characters to any other uppercase letter. Return the length of the longest substring that can be made of one repeated letter.",
+  "constraints": [
+    "1 <= s.length <= 10^5",
+    "0 <= k <= s.length"
+  ],
+  "function": {
+    "name": "characterReplacement",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      },
+      {
+        "name": "k",
+        "type": "int"
+      }
+    ],
+    "returns": "int"
+  },
+  "complexity": {
+    "time": "O(n)",
+    "space": "O(1) (26 counters)"
+  },
+  "hints": [
+    "A window is fixable when (window length - count of its most common letter) <= k.",
+    "Grow the window to the right; shrink from the left when it is no longer fixable.",
+    "Track letter counts in the window and the max count; shrink while len - maxCount > k; record the best length."
+  ],
+  "tests": [
+    {
+      "args": [
+        "ABAB",
+        2
+      ],
+      "expected": 4,
+      "hidden": false,
+      "explanation": "Change both A's (or B's)."
+    },
+    {
+      "args": [
+        "AABABBA",
+        1
+      ],
+      "expected": 4,
+      "hidden": false,
+      "explanation": "\"AABA\" -> \"AAAA\", length 4."
+    },
+    {
+      "args": [
+        "A",
+        0
+      ],
+      "expected": 1,
+      "hidden": true
+    },
+    {
+      "args": [
+        "AB",
+        0
+      ],
+      "expected": 1,
+      "hidden": true
+    },
+    {
+      "args": [
+        "AAAA",
+        2
+      ],
+      "expected": 4,
+      "hidden": true
+    },
+    {
+      "args": [
+        "ABCDE",
+        1
+      ],
+      "expected": 2,
+      "hidden": true
+    },
+    {
+      "args": [
+        "CABCBAB",
+        1
+      ],
+      "expected": 3,
+      "hidden": true
+    },
+    {
+      "args": [
+        "ACBBABBABA",
+        1
+      ],
+      "expected": 5,
+      "hidden": true
+    },
+    {
+      "args": [
+        "ACBCBAAABA",
+        2
+      ],
+      "expected": 6,
+      "hidden": true
+    },
+    {
+      "args": [
+        "BCAAAABBCCBBB",
+        3
+      ],
+      "expected": 8,
+      "hidden": true
+    },
+    {
+      "args": [
+        "BAABB",
+        1
+      ],
+      "expected": 3,
+      "hidden": true
+    },
+    {
+      "args": [
+        "BACAABBAAAAA",
+        2
+      ],
+      "expected": 9,
+      "hidden": true
+    }
+  ]
+}

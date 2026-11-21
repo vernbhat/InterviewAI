@@ -1,0 +1,134 @@
+{
+  "id": "valid-palindrome",
+  "order": 16,
+  "title": "Valid Palindrome",
+  "difficulty": "Easy",
+  "pattern": "Two pointers",
+  "statement": "Given a string `s`, return `true` if it reads the same forwards and backwards after lowercasing it and removing every non-alphanumeric character.",
+  "constraints": [
+    "1 <= s.length <= 2 * 10^5",
+    "s consists of printable ASCII characters"
+  ],
+  "function": {
+    "name": "isPalindrome",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      }
+    ],
+    "returns": "bool"
+  },
+  "complexity": {
+    "time": "O(n)",
+    "space": "O(1)"
+  },
+  "hints": [
+    "You do not need to build the cleaned string.",
+    "Use one pointer from each end and skip characters that are not letters or digits.",
+    "While l < r: skip non-alphanumerics on both sides, compare lowercase chars, then move both pointers inward."
+  ],
+  "tests": [
+    {
+      "args": [
+        "A man, a plan, a canal: Panama"
+      ],
+      "expected": true,
+      "hidden": false,
+      "explanation": "amanaplanacanalpanama is a palindrome."
+    },
+    {
+      "args": [
+        "race a car"
+      ],
+      "expected": false,
+      "hidden": false,
+      "explanation": "raceacar is not."
+    },
+    {
+      "args": [
+        " "
+      ],
+      "expected": true,
+      "hidden": false,
+      "explanation": "Empty after cleaning, so true."
+    },
+    {
+      "args": [
+        ""
+      ],
+      "expected": true,
+      "hidden": true
+    },
+    {
+      "args": [
+        "0P"
+      ],
+      "expected": false,
+      "hidden": true
+    },
+    {
+      "args": [
+        "a."
+      ],
+      "expected": true,
+      "hidden": true
+    },
+    {
+      "args": [
+        ".,"
+      ],
+      "expected": true,
+      "hidden": true
+    },
+    {
+      "args": [
+        "Aa"
+      ],
+      "expected": true,
+      "hidden": true
+    },
+    {
+      "args": [
+        ",,"
+      ],
+      "expected": true,
+      "hidden": true
+    },
+    {
+      "args": [
+        "A.A . ab"
+      ],
+      "expected": false,
+      "hidden": true
+    },
+    {
+      "args": [
+        "ab 1. B"
+      ],
+      "expected": false,
+      "hidden": true
+    },
+    {
+      "args": [
+        "abAb,."
+      ],
+      "expected": false,
+      "hidden": true
+    },
+    {
+      "args": [
+        "1A "
+      ],
+      "expected": false,
+      "hidden": true
+    },
+    {
+      "args": [
+        ",bAa1111aAb,"
+      ],
+      "expected": true,
+      "hidden": true
+    }
+  ]
+}

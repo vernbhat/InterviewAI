@@ -520,5 +520,11 @@ SPECS: list[Spec] = [
     },
 ]
 
+from specs_easy import EASY  # noqa: E402
+from specs_medium import MEDIUM  # noqa: E402
+from specs_hard import HARD  # noqa: E402
+
+SPECS += EASY + MEDIUM + HARD
+
 RANDOM_TESTS_PER_PROBLEM = 6
 GeneratorFn = Callable[[random.Random], list[Any]]

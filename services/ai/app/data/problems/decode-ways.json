@@ -1,0 +1,134 @@
+{
+  "id": "decode-ways",
+  "order": 39,
+  "title": "Decode Ways",
+  "difficulty": "Medium",
+  "pattern": "1D dynamic programming",
+  "statement": "Letters A-Z are encoded as `\"1\"` to `\"26\"`. Given a digit string `s`, return how many ways it can be decoded. `\"06\"` is not a valid code for F.",
+  "constraints": [
+    "1 <= s.length <= 100",
+    "s contains only digits"
+  ],
+  "function": {
+    "name": "numDecodings",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      }
+    ],
+    "returns": "int"
+  },
+  "complexity": {
+    "time": "O(n)",
+    "space": "O(1)"
+  },
+  "hints": [
+    "How does the last one digit, or the last two digits, extend the earlier decodings?",
+    "ways(i) = ways(i-1) if s[i] != '0', plus ways(i-2) if s[i-1..i] is between 10 and 26.",
+    "Roll two variables through the string. Zeros are the trap: a '0' can only be the second digit of 10 or 20."
+  ],
+  "tests": [
+    {
+      "args": [
+        "12"
+      ],
+      "expected": 2,
+      "hidden": false,
+      "explanation": "\"AB\" or \"L\"."
+    },
+    {
+      "args": [
+        "226"
+      ],
+      "expected": 3,
+      "hidden": false,
+      "explanation": "BZ, VF, BBF."
+    },
+    {
+      "args": [
+        "06"
+      ],
+      "expected": 0,
+      "hidden": false,
+      "explanation": "Leading zero, so 0."
+    },
+    {
+      "args": [
+        "0"
+      ],
+      "expected": 0,
+      "hidden": true
+    },
+    {
+      "args": [
+        "10"
+      ],
+      "expected": 1,
+      "hidden": true
+    },
+    {
+      "args": [
+        "100"
+      ],
+      "expected": 0,
+      "hidden": true
+    },
+    {
+      "args": [
+        "27"
+      ],
+      "expected": 1,
+      "hidden": true
+    },
+    {
+      "args": [
+        "1111"
+      ],
+      "expected": 5,
+      "hidden": true
+    },
+    {
+      "args": [
+        "310922112"
+      ],
+      "expected": 8,
+      "hidden": true
+    },
+    {
+      "args": [
+        "2"
+      ],
+      "expected": 1,
+      "hidden": true
+    },
+    {
+      "args": [
+        "1028468220"
+      ],
+      "expected": 1,
+      "hidden": true
+    },
+    {
+      "args": [
+        "716825211771"
+      ],
+      "expected": 20,
+      "hidden": true
+    },
+    {
+      "args": [
+        "92230980691"
+      ],
+      "expected": 0,
+      "hidden": true
+    },
+    {
+      "args": [
+        "034238526"
+      ],
+      "expected": 0,
+      "hidden": true
+    }
+  ]
+}

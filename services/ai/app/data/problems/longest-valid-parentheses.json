@@ -1,0 +1,133 @@
+{
+  "id": "longest-valid-parentheses",
+  "order": 57,
+  "title": "Longest Valid Parentheses",
+  "difficulty": "Hard",
+  "pattern": "Stack",
+  "statement": "Given a string `s` of `(` and `)`, return the length of its longest well-formed parentheses substring.",
+  "constraints": [
+    "0 <= s.length <= 3 * 10^4"
+  ],
+  "function": {
+    "name": "longestValidParentheses",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      }
+    ],
+    "returns": "int"
+  },
+  "complexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "hints": [
+    "Brute force checks every substring. What makes a valid run end?",
+    "Push indices on a stack and keep the index of the last unmatched ')' as a base.",
+    "Start the stack with -1. On '(' push i; on ')' pop, then push i if the stack is empty, else best = max(best, i - top)."
+  ],
+  "tests": [
+    {
+      "args": [
+        "(()"
+      ],
+      "expected": 2,
+      "hidden": false,
+      "explanation": "\"()\"."
+    },
+    {
+      "args": [
+        ")()())"
+      ],
+      "expected": 4,
+      "hidden": false,
+      "explanation": "\"()()\"."
+    },
+    {
+      "args": [
+        ""
+      ],
+      "expected": 0,
+      "hidden": false,
+      "explanation": "0."
+    },
+    {
+      "args": [
+        "("
+      ],
+      "expected": 0,
+      "hidden": true
+    },
+    {
+      "args": [
+        "()"
+      ],
+      "expected": 2,
+      "hidden": true
+    },
+    {
+      "args": [
+        "()(()"
+      ],
+      "expected": 2,
+      "hidden": true
+    },
+    {
+      "args": [
+        "(()())"
+      ],
+      "expected": 6,
+      "hidden": true
+    },
+    {
+      "args": [
+        "))(("
+      ],
+      "expected": 0,
+      "hidden": true
+    },
+    {
+      "args": [
+        ")(()())))("
+      ],
+      "expected": 6,
+      "hidden": true
+    },
+    {
+      "args": [
+        "((()(()()"
+      ],
+      "expected": 4,
+      "hidden": true
+    },
+    {
+      "args": [
+        "(()))())()))))(("
+      ],
+      "expected": 4,
+      "hidden": true
+    },
+    {
+      "args": [
+        ")(((()))()("
+      ],
+      "expected": 8,
+      "hidden": true
+    },
+    {
+      "args": [
+        ")((()())(())"
+      ],
+      "expected": 10,
+      "hidden": true
+    },
+    {
+      "args": [
+        "(()(()())))("
+      ],
+      "expected": 10,
+      "hidden": true
+    }
+  ]
+}

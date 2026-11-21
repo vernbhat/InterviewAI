@@ -1,0 +1,303 @@
+{
+  "id": "squares-of-sorted-array",
+  "order": 27,
+  "title": "Squares of a Sorted Array",
+  "difficulty": "Easy",
+  "pattern": "Two pointers",
+  "statement": "Given an integer array `nums` sorted in non-decreasing order, return the squares of each number, also sorted in non-decreasing order.",
+  "constraints": [
+    "1 <= nums.length <= 10^4",
+    "-10^4 <= nums[i] <= 10^4"
+  ],
+  "function": {
+    "name": "sortedSquares",
+    "params": [
+      {
+        "name": "nums",
+        "type": "int[]"
+      }
+    ],
+    "returns": "int[]"
+  },
+  "complexity": {
+    "time": "O(n)",
+    "space": "O(n) for the output"
+  },
+  "hints": [
+    "Squaring then sorting is O(n log n). Where are the largest squares?",
+    "The largest square is at one of the two ends.",
+    "Two pointers from both ends; place the larger square at the back of the output and move that pointer inward."
+  ],
+  "tests": [
+    {
+      "args": [
+        [
+          -4,
+          -1,
+          0,
+          3,
+          10
+        ]
+      ],
+      "expected": [
+        0,
+        1,
+        9,
+        16,
+        100
+      ],
+      "hidden": false,
+      "explanation": "[0, 1, 9, 16, 100]."
+    },
+    {
+      "args": [
+        [
+          -7,
+          -3,
+          2,
+          3,
+          11
+        ]
+      ],
+      "expected": [
+        4,
+        9,
+        9,
+        49,
+        121
+      ],
+      "hidden": false,
+      "explanation": "[4, 9, 9, 49, 121]."
+    },
+    {
+      "args": [
+        [
+          0
+        ]
+      ],
+      "expected": [
+        0
+      ],
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          -5
+        ]
+      ],
+      "expected": [
+        25
+      ],
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          -3,
+          -2,
+          -1
+        ]
+      ],
+      "expected": [
+        1,
+        4,
+        9
+      ],
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          1,
+          2,
+          3
+        ]
+      ],
+      "expected": [
+        1,
+        4,
+        9
+      ],
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          -27,
+          -25,
+          -25,
+          -2,
+          4,
+          9,
+          9,
+          20,
+          23,
+          26
+        ]
+      ],
+      "expected": [
+        4,
+        16,
+        81,
+        81,
+        400,
+        529,
+        625,
+        625,
+        676,
+        729
+      ],
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          -23,
+          -20,
+          3,
+          3,
+          4,
+          8,
+          12,
+          12,
+          14,
+          18,
+          23
+        ]
+      ],
+      "expected": [
+        9,
+        9,
+        16,
+        64,
+        144,
+        144,
+        196,
+        324,
+        400,
+        529,
+        529
+      ],
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          -29,
+          -21,
+          -21,
+          -14,
+          1,
+          5,
+          5,
+          19,
+          21,
+          21,
+          25,
+          26,
+          27
+        ]
+      ],
+      "expected": [
+        1,
+        25,
+        25,
+        196,
+        361,
+        441,
+        441,
+        441,
+        441,
+        625,
+        676,
+        729,
+        841
+      ],
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          -27,
+          -20,
+          -18,
+          -16,
+          -7,
+          -5,
+          2,
+          20,
+          23,
+          29
+        ]
+      ],
+      "expected": [
+        4,
+        25,
+        49,
+        256,
+        324,
+        400,
+        400,
+        529,
+        729,
+        841
+      ],
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          -25,
+          -24,
+          -21,
+          -7,
+          -7,
+          -2,
+          2,
+          28,
+          29,
+          29,
+          30
+        ]
+      ],
+      "expected": [
+        4,
+        4,
+        49,
+        49,
+        441,
+        576,
+        625,
+        784,
+        841,
+        841,
+        900
+      ],
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          -26,
+          2,
+          4,
+          6,
+          11,
+          14,
+          23
+        ]
+      ],
+      "expected": [
+        4,
+        16,
+        36,
+        121,
+        196,
+        529,
+        676
+      ],
+      "hidden": true
+    }
+  ]
+}

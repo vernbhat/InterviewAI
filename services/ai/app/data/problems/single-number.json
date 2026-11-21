@@ -1,0 +1,183 @@
+{
+  "id": "single-number",
+  "order": 18,
+  "title": "Single Number",
+  "difficulty": "Easy",
+  "pattern": "Bit manipulation",
+  "statement": "Every element of `nums` appears exactly twice except one. Return that single element, using O(1) extra space.",
+  "constraints": [
+    "1 <= nums.length <= 3 * 10^4",
+    "-3 * 10^4 <= nums[i] <= 3 * 10^4"
+  ],
+  "function": {
+    "name": "singleNumber",
+    "params": [
+      {
+        "name": "nums",
+        "type": "int[]"
+      }
+    ],
+    "returns": "int"
+  },
+  "complexity": {
+    "time": "O(n)",
+    "space": "O(1)"
+  },
+  "hints": [
+    "A hash set works but uses O(n) space. Which operation cancels equal values?",
+    "x ^ x = 0 and x ^ 0 = x. XOR is also order-independent.",
+    "XOR all the numbers together; the pairs cancel and the single number remains."
+  ],
+  "tests": [
+    {
+      "args": [
+        [
+          2,
+          2,
+          1
+        ]
+      ],
+      "expected": 1,
+      "hidden": false,
+      "explanation": "1 appears once."
+    },
+    {
+      "args": [
+        [
+          4,
+          1,
+          2,
+          1,
+          2
+        ]
+      ],
+      "expected": 4,
+      "hidden": false,
+      "explanation": "4 appears once."
+    },
+    {
+      "args": [
+        [
+          1
+        ]
+      ],
+      "expected": 1,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          -1,
+          5,
+          5
+        ]
+      ],
+      "expected": -1,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          0,
+          7,
+          7
+        ]
+      ],
+      "expected": 0,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          3,
+          -3,
+          3
+        ]
+      ],
+      "expected": -3,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          8,
+          -24,
+          -24
+        ]
+      ],
+      "expected": 8,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          -4,
+          -11,
+          -11
+        ]
+      ],
+      "expected": -4,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          -41
+        ]
+      ],
+      "expected": -41,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          -22,
+          15,
+          20,
+          -23,
+          12,
+          20,
+          12,
+          8,
+          15,
+          7,
+          8,
+          7,
+          -22
+        ]
+      ],
+      "expected": -23,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          -48,
+          39,
+          29,
+          39,
+          11,
+          29,
+          11
+        ]
+      ],
+      "expected": -48,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          22,
+          29,
+          24,
+          29,
+          21,
+          22,
+          24
+        ]
+      ],
+      "expected": 21,
+      "hidden": true
+    }
+  ]
+}

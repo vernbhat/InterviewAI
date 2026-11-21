@@ -1,0 +1,135 @@
+{
+  "id": "unique-paths",
+  "order": 37,
+  "title": "Unique Paths",
+  "difficulty": "Medium",
+  "pattern": "Grid DP",
+  "statement": "A robot starts at the top-left of an `m x n` grid and can only move right or down. Return the number of distinct paths to the bottom-right corner.",
+  "constraints": [
+    "1 <= m, n <= 100",
+    "The answer fits in a 32-bit signed integer for the tested sizes"
+  ],
+  "function": {
+    "name": "uniquePaths",
+    "params": [
+      {
+        "name": "m",
+        "type": "int"
+      },
+      {
+        "name": "n",
+        "type": "int"
+      }
+    ],
+    "returns": "int"
+  },
+  "complexity": {
+    "time": "O(m * n)",
+    "space": "O(n)"
+  },
+  "hints": [
+    "How many ways reach a cell? It depends on two neighbours.",
+    "paths(r, c) = paths(r-1, c) + paths(r, c-1), with the first row and column all 1.",
+    "Use a single row array updated in place: row[j] += row[j-1]. (Combinatorics: C(m+n-2, m-1).)"
+  ],
+  "tests": [
+    {
+      "args": [
+        3,
+        7
+      ],
+      "expected": 28,
+      "hidden": false,
+      "explanation": "28 paths."
+    },
+    {
+      "args": [
+        3,
+        2
+      ],
+      "expected": 3,
+      "hidden": false,
+      "explanation": "3 paths."
+    },
+    {
+      "args": [
+        1,
+        1
+      ],
+      "expected": 1,
+      "hidden": true
+    },
+    {
+      "args": [
+        1,
+        10
+      ],
+      "expected": 1,
+      "hidden": true
+    },
+    {
+      "args": [
+        10,
+        1
+      ],
+      "expected": 1,
+      "hidden": true
+    },
+    {
+      "args": [
+        10,
+        10
+      ],
+      "expected": 48620,
+      "hidden": true
+    },
+    {
+      "args": [
+        9,
+        1
+      ],
+      "expected": 1,
+      "hidden": true
+    },
+    {
+      "args": [
+        8,
+        9
+      ],
+      "expected": 6435,
+      "hidden": true
+    },
+    {
+      "args": [
+        1,
+        4
+      ],
+      "expected": 1,
+      "hidden": true
+    },
+    {
+      "args": [
+        5,
+        5
+      ],
+      "expected": 70,
+      "hidden": true
+    },
+    {
+      "args": [
+        6,
+        11
+      ],
+      "expected": 3003,
+      "hidden": true
+    },
+    {
+      "args": [
+        10,
+        11
+      ],
+      "expected": 92378,
+      "hidden": true
+    }
+  ]
+}

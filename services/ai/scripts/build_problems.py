@@ -38,7 +38,10 @@ def main() -> None:
         tests = [case(ex["args"], False, ex.get("explanation")) for ex in spec["examples"]]
         tests += [case(args, True) for args in spec["edge_cases"]]
         seen = {json.dumps(t["args"]) for t in tests}
-        while sum(1 for t in tests if t["hidden"]) < len(spec["edge_cases"]) + RANDOM_TESTS_PER_PROBLEM:
+        attempts = 0
+        # Small input spaces (e.g. n <= 9) may not have enough distinct random cases; stop trying after a while.
+        while sum(1 for t in tests if t["hidden"]) < len(spec["edge_cases"]) + RANDOM_TESTS_PER_PROBLEM and attempts < 500:
+            attempts += 1
             args = spec["generator"](rng)
             key = json.dumps(args)
             if key not in seen:

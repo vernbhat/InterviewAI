@@ -22,12 +22,12 @@ def python_reference(problem):
     return f"{src}\n\nclass Solution:\n    def {name}(self, *args):\n        return {fn.__name__}(*args)\n"
 
 
-def test_bank_has_twelve_problems_with_hidden_tests():
+def test_bank_has_over_fifty_problems_with_hidden_tests():
     problems = all_problems()
-    assert len(problems) == 12
+    assert len(problems) >= 60
     assert {p["difficulty"] for p in problems} == {"Easy", "Medium", "Hard"}
     for p in problems:
-        assert sum(t["hidden"] for t in p["tests"]) >= 8
+        assert sum(t["hidden"] for t in p["tests"]) >= 5, p["id"]
         assert len(p["hints"]) == 3
 
 

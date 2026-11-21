@@ -1,0 +1,119 @@
+{
+  "id": "palindromic-substrings",
+  "order": 41,
+  "title": "Palindromic Substrings",
+  "difficulty": "Medium",
+  "pattern": "Expand around center",
+  "statement": "Given a string `s`, return how many of its substrings are palindromes. Substrings at different positions count separately.",
+  "constraints": [
+    "1 <= s.length <= 1000",
+    "Lowercase English letters"
+  ],
+  "function": {
+    "name": "countSubstrings",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      }
+    ],
+    "returns": "int"
+  },
+  "complexity": {
+    "time": "O(n^2)",
+    "space": "O(1)"
+  },
+  "hints": [
+    "Checking every substring separately is O(n^3).",
+    "Every palindrome has a center: a character, or a gap between two characters.",
+    "For each of the 2n-1 centers, expand outward while both ends match, counting each step."
+  ],
+  "tests": [
+    {
+      "args": [
+        "abc"
+      ],
+      "expected": 3,
+      "hidden": false,
+      "explanation": "a, b, c."
+    },
+    {
+      "args": [
+        "aaa"
+      ],
+      "expected": 6,
+      "hidden": false,
+      "explanation": "a, a, a, aa, aa, aaa."
+    },
+    {
+      "args": [
+        "a"
+      ],
+      "expected": 1,
+      "hidden": true
+    },
+    {
+      "args": [
+        "ab"
+      ],
+      "expected": 2,
+      "hidden": true
+    },
+    {
+      "args": [
+        "aba"
+      ],
+      "expected": 4,
+      "hidden": true
+    },
+    {
+      "args": [
+        "abba"
+      ],
+      "expected": 6,
+      "hidden": true
+    },
+    {
+      "args": [
+        "b"
+      ],
+      "expected": 1,
+      "hidden": true
+    },
+    {
+      "args": [
+        "bbacaab"
+      ],
+      "expected": 10,
+      "hidden": true
+    },
+    {
+      "args": [
+        "bcabaaa"
+      ],
+      "expected": 11,
+      "hidden": true
+    },
+    {
+      "args": [
+        "baabccaaab"
+      ],
+      "expected": 16,
+      "hidden": true
+    },
+    {
+      "args": [
+        "aaaaaabaab"
+      ],
+      "expected": 29,
+      "hidden": true
+    },
+    {
+      "args": [
+        "ababbbbabcbaab"
+      ],
+      "expected": 29,
+      "hidden": true
+    }
+  ]
+}

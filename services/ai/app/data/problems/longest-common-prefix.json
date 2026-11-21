@@ -1,0 +1,172 @@
+{
+  "id": "longest-common-prefix",
+  "order": 23,
+  "title": "Longest Common Prefix",
+  "difficulty": "Easy",
+  "pattern": "Strings",
+  "statement": "Given an array of strings `strs`, return the longest prefix shared by all of them, or an empty string if there is none.",
+  "constraints": [
+    "1 <= strs.length <= 200",
+    "0 <= strs[i].length <= 200",
+    "Lowercase English letters"
+  ],
+  "function": {
+    "name": "longestCommonPrefix",
+    "params": [
+      {
+        "name": "strs",
+        "type": "string[]"
+      }
+    ],
+    "returns": "string"
+  },
+  "complexity": {
+    "time": "O(total characters)",
+    "space": "O(1)"
+  },
+  "hints": [
+    "The answer can be no longer than the shortest string.",
+    "Start with the first string as the candidate and shrink it against each other string.",
+    "Compare column by column (vertical scan) or shrink a prefix; stop at the first mismatch or string end."
+  ],
+  "tests": [
+    {
+      "args": [
+        [
+          "flower",
+          "flow",
+          "flight"
+        ]
+      ],
+      "expected": "fl",
+      "hidden": false,
+      "explanation": "\"fl\"."
+    },
+    {
+      "args": [
+        [
+          "dog",
+          "racecar",
+          "car"
+        ]
+      ],
+      "expected": "",
+      "hidden": false,
+      "explanation": "No shared prefix."
+    },
+    {
+      "args": [
+        [
+          ""
+        ]
+      ],
+      "expected": "",
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          "a"
+        ]
+      ],
+      "expected": "a",
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          "ab",
+          "a"
+        ]
+      ],
+      "expected": "a",
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          "same",
+          "same"
+        ]
+      ],
+      "expected": "same",
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          "",
+          "b"
+        ]
+      ],
+      "expected": "",
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          "ccac",
+          "babb"
+        ]
+      ],
+      "expected": "",
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          "c"
+        ]
+      ],
+      "expected": "c",
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          "c",
+          "cac"
+        ]
+      ],
+      "expected": "c",
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          "ab",
+          "bb",
+          "ac",
+          "aacb"
+        ]
+      ],
+      "expected": "",
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          "cabbb",
+          "cab",
+          "cab",
+          "cabcaaa"
+        ]
+      ],
+      "expected": "cab",
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          "bacab",
+          "bacbbab",
+          "bacbcab",
+          "bac",
+          "bac"
+        ]
+      ],
+      "expected": "bac",
+      "hidden": true
+    }
+  ]
+}

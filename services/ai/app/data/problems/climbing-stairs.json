@@ -1,0 +1,118 @@
+{
+  "id": "climbing-stairs",
+  "order": 17,
+  "title": "Climbing Stairs",
+  "difficulty": "Easy",
+  "pattern": "1D dynamic programming",
+  "statement": "You are climbing a staircase with `n` steps. Each move climbs 1 or 2 steps. Return how many distinct ways there are to reach the top.",
+  "constraints": [
+    "1 <= n <= 45"
+  ],
+  "function": {
+    "name": "climbStairs",
+    "params": [
+      {
+        "name": "n",
+        "type": "int"
+      }
+    ],
+    "returns": "int"
+  },
+  "complexity": {
+    "time": "O(n)",
+    "space": "O(1)"
+  },
+  "hints": [
+    "How can you reach step n? From which earlier steps?",
+    "ways(n) = ways(n - 1) + ways(n - 2). Does that look familiar?",
+    "Iterate with two variables holding the last two values (Fibonacci), avoiding exponential recursion."
+  ],
+  "tests": [
+    {
+      "args": [
+        2
+      ],
+      "expected": 2,
+      "hidden": false,
+      "explanation": "1+1 or 2."
+    },
+    {
+      "args": [
+        3
+      ],
+      "expected": 3,
+      "hidden": false,
+      "explanation": "1+1+1, 1+2, 2+1."
+    },
+    {
+      "args": [
+        1
+      ],
+      "expected": 1,
+      "hidden": true
+    },
+    {
+      "args": [
+        4
+      ],
+      "expected": 5,
+      "hidden": true
+    },
+    {
+      "args": [
+        10
+      ],
+      "expected": 89,
+      "hidden": true
+    },
+    {
+      "args": [
+        45
+      ],
+      "expected": 1836311903,
+      "hidden": true
+    },
+    {
+      "args": [
+        44
+      ],
+      "expected": 1134903170,
+      "hidden": true
+    },
+    {
+      "args": [
+        37
+      ],
+      "expected": 39088169,
+      "hidden": true
+    },
+    {
+      "args": [
+        29
+      ],
+      "expected": 832040,
+      "hidden": true
+    },
+    {
+      "args": [
+        31
+      ],
+      "expected": 2178309,
+      "hidden": true
+    },
+    {
+      "args": [
+        5
+      ],
+      "expected": 8,
+      "hidden": true
+    },
+    {
+      "args": [
+        8
+      ],
+      "expected": 34,
+      "hidden": true
+    }
+  ]
+}

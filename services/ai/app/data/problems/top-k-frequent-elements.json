@@ -1,0 +1,284 @@
+{
+  "id": "top-k-frequent-elements",
+  "order": 31,
+  "title": "Top K Frequent Elements",
+  "difficulty": "Medium",
+  "pattern": "Hash map, bucket sort",
+  "statement": "Given an integer array `nums` and an integer `k`, return the `k` most frequent values, ordered by frequency (highest first) and breaking ties by smaller value first.",
+  "constraints": [
+    "1 <= nums.length <= 10^5",
+    "1 <= k <= number of distinct values"
+  ],
+  "function": {
+    "name": "topKFrequent",
+    "params": [
+      {
+        "name": "nums",
+        "type": "int[]"
+      },
+      {
+        "name": "k",
+        "type": "int"
+      }
+    ],
+    "returns": "int[]"
+  },
+  "complexity": {
+    "time": "O(n log n), or O(n) with buckets",
+    "space": "O(n)"
+  },
+  "hints": [
+    "First count how often each value occurs.",
+    "Now you need the k largest counts. Sorting works; a size-k heap or frequency buckets are faster.",
+    "Count with a hash map, then sort unique values by (-count, value) and take the first k."
+  ],
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          1,
+          1,
+          2,
+          2,
+          3
+        ],
+        2
+      ],
+      "expected": [
+        1,
+        2
+      ],
+      "hidden": false,
+      "explanation": "1 appears 3 times, 2 appears twice."
+    },
+    {
+      "args": [
+        [
+          1
+        ],
+        1
+      ],
+      "expected": [
+        1
+      ],
+      "hidden": false,
+      "explanation": "Only one value."
+    },
+    {
+      "args": [
+        [
+          4,
+          4,
+          5,
+          5,
+          6
+        ],
+        2
+      ],
+      "expected": [
+        4,
+        5
+      ],
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          -1,
+          -1,
+          2
+        ],
+        2
+      ],
+      "expected": [
+        -1,
+        2
+      ],
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          3,
+          2,
+          1
+        ],
+        3
+      ],
+      "expected": [
+        1,
+        2,
+        3
+      ],
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          7,
+          7,
+          7
+        ],
+        1
+      ],
+      "expected": [
+        7
+      ],
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          5,
+          0,
+          -5,
+          1,
+          5,
+          -3,
+          -4,
+          1,
+          -3,
+          -4,
+          2,
+          -3,
+          1,
+          -1,
+          0
+        ],
+        5
+      ],
+      "expected": [
+        -3,
+        1,
+        -4,
+        0,
+        5
+      ],
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          -2,
+          -5,
+          -3,
+          3,
+          2,
+          0,
+          -1,
+          -2,
+          4,
+          3,
+          4
+        ],
+        3
+      ],
+      "expected": [
+        -2,
+        3,
+        4
+      ],
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          3,
+          4,
+          -5,
+          0,
+          4,
+          -5,
+          4,
+          5,
+          5,
+          4
+        ],
+        1
+      ],
+      "expected": [
+        4
+      ],
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          5,
+          0,
+          -3,
+          0,
+          -4,
+          1,
+          3,
+          3,
+          5,
+          5,
+          -1
+        ],
+        2
+      ],
+      "expected": [
+        5,
+        0
+      ],
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          -2,
+          2,
+          3,
+          -2,
+          5,
+          0,
+          -1,
+          2,
+          0,
+          3,
+          2,
+          3,
+          2,
+          0
+        ],
+        1
+      ],
+      "expected": [
+        2
+      ],
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          3,
+          -5,
+          -2,
+          1,
+          -3,
+          2,
+          5,
+          -4,
+          5,
+          -4,
+          1,
+          -3,
+          -1,
+          4,
+          -2
+        ],
+        5
+      ],
+      "expected": [
+        -4,
+        -3,
+        -2,
+        1,
+        5
+      ],
+      "hidden": true
+    }
+  ]
+}

@@ -1,0 +1,218 @@
+{
+  "id": "largest-rectangle-in-histogram",
+  "order": 56,
+  "title": "Largest Rectangle in Histogram",
+  "difficulty": "Hard",
+  "pattern": "Monotonic stack",
+  "statement": "Given `heights` of histogram bars (each of width 1), return the area of the largest rectangle that fits inside the histogram.",
+  "constraints": [
+    "1 <= heights.length <= 10^5",
+    "0 <= heights[i] <= 10^4"
+  ],
+  "function": {
+    "name": "largestRectangleArea",
+    "params": [
+      {
+        "name": "heights",
+        "type": "int[]"
+      }
+    ],
+    "returns": "int"
+  },
+  "complexity": {
+    "time": "O(n)",
+    "space": "O(n)"
+  },
+  "hints": [
+    "For each bar, the best rectangle at its height extends to the nearest shorter bar on each side.",
+    "A stack of increasing heights tells you exactly when a bar's right boundary is found.",
+    "When a shorter bar arrives, pop taller bars and compute height * width using the index where each popped bar started."
+  ],
+  "tests": [
+    {
+      "args": [
+        [
+          2,
+          1,
+          5,
+          6,
+          2,
+          3
+        ]
+      ],
+      "expected": 10,
+      "hidden": false,
+      "explanation": "Bars 5 and 6 give 10."
+    },
+    {
+      "args": [
+        [
+          2,
+          4
+        ]
+      ],
+      "expected": 4,
+      "hidden": false,
+      "explanation": "4."
+    },
+    {
+      "args": [
+        [
+          0
+        ]
+      ],
+      "expected": 0,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          5
+        ]
+      ],
+      "expected": 5,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          1,
+          1,
+          1,
+          1
+        ]
+      ],
+      "expected": 4,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          6,
+          2,
+          5,
+          4,
+          5,
+          1,
+          6
+        ]
+      ],
+      "expected": 12,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          3,
+          2,
+          1
+        ]
+      ],
+      "expected": 4,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          2,
+          7,
+          1,
+          0,
+          5,
+          6,
+          2,
+          4,
+          0,
+          1,
+          2,
+          6,
+          6,
+          7,
+          6,
+          5
+        ]
+      ],
+      "expected": 25,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          3,
+          2,
+          7,
+          3,
+          0,
+          3,
+          3,
+          6,
+          6
+        ]
+      ],
+      "expected": 12,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          5,
+          7,
+          0,
+          6,
+          0,
+          0,
+          1,
+          8,
+          6,
+          8,
+          4,
+          2,
+          8
+        ]
+      ],
+      "expected": 18,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          5,
+          6
+        ]
+      ],
+      "expected": 10,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          4,
+          7,
+          4
+        ]
+      ],
+      "expected": 12,
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          4,
+          4,
+          0,
+          4,
+          8,
+          0,
+          0,
+          0,
+          2,
+          3,
+          8,
+          5
+        ]
+      ],
+      "expected": 10,
+      "hidden": true
+    }
+  ]
+}
