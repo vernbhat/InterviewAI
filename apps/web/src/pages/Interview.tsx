@@ -1,5 +1,5 @@
 import { FormEvent, lazy, Suspense, useCallback, useEffect, useRef, useState } from "react";
-import { Flag, Lightbulb, Play, RotateCcw, Send, UploadCloud } from "lucide-react";
+import { Flag, Lightbulb, Maximize2, Minimize2, Play, RotateCcw, Send, UploadCloud, WrapText } from "lucide-react";
 import { api, formatValue, Language, languageLabel, Message, RunResult, SessionFull, settings } from "../api";
 import { navigate } from "../App";
 import { confirmDialog } from "../components/Confirm";
@@ -7,9 +7,30 @@ import { store } from "../storage";
 import { Inline, Paragraphs } from "../components/Markdown";
 import { PhaseBar } from "../components/PhaseBar";
 import { PushToTalk } from "../components/PushToTalk";
+import { Splitter } from "../components/Splitter";
 import { TestResults } from "../components/TestResults";
 
 const CodeEditor = lazy(() => import("../components/CodeEditor").then((m) => ({ default: m.CodeEditor })));
+
+type Layout = { left: number; right: number; editor: number }; // pane widths in px, editor share of its column (0-1)
+const LAYOUT_KEY = "interviewai.layout";
+const WRAP_KEY = "interviewai.wordWrap";
+const defaultLayout = (): Layout => {
+  const w = typeof window === "undefined" ? 1400 : window.innerWidth;
+  return { left: Math.round(w * 0.26), right: Math.round(w * 0.28), editor: 0.62 };
+};
+function loadLayout(): Layout {
+  try {
+    const v = JSON.parse(store.get(LAYOUT_KEY) ?? "null");
+    if (v && typeof v.left === "number" && typeof v.right === "number" && typeof v.editor === "number") return v;
+  } catch {
+    /* ignore bad saved value */
+  }
+  return defaultLayout();
+}
+const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v));
+const MIN_SIDE = 200;
+const MIN_EDITOR = 320;
 
 const codeKey = (id: string, lang: Language) => `interviewai.code.${id}.${lang}`;
 
@@ -33,6 +54,30 @@ export function Interview({ id }: { id: string }) {
   const [draft, setDraft] = useState("");
   const [busy, setBusy] = useState<null | "send" | "run" | "submit" | "hint" | "end">(null);
   const [result, setResult] = useState<{ kind: "run" | "submit"; result: RunResult } | null>(null);
+  const [layout, setLayout] = useState<Layout>(loadLayout);
+  const [wrap, setWrap] = useState(() => store.get(WRAP_KEY) === "1");
+  const [focusEditor, setFocusEditor] = useState(false);
+  const panesRef = useRef<HTMLDivElement>(null);
+  const editorColRef = useRef<HTMLElement>(null);
+
+  useEffect(() => store.set(LAYOUT_KEY, JSON.stringify(layout)), [layout]);
+  useEffect(() => store.set(WRAP_KEY, wrap ? "1" : "0"), [wrap]);
+
+  const dragLeft = (dx: number) =>
+    setLayout((l) => {
+      const total = panesRef.current?.clientWidth ?? window.innerWidth;
+      return { ...l, left: clamp(l.left + dx, MIN_SIDE, total - l.right - MIN_EDITOR) };
+    });
+  const dragRight = (dx: number) =>
+    setLayout((l) => {
+      const total = panesRef.current?.clientWidth ?? window.innerWidth;
+      return { ...l, right: clamp(l.right - dx, MIN_SIDE, total - l.left - MIN_EDITOR) };
+    });
+  const dragEditor = (dy: number) =>
+    setLayout((l) => {
+      const h = editorColRef.current?.clientHeight ?? 600;
+      return { ...l, editor: clamp(l.editor + dy / h, 0.2, 0.9) };
+    });
   const chatEnd = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -166,8 +211,8 @@ export function Interview({ id }: { id: string }) {
       </div>
       {error && <div className="banner error slim">{error}</div>}
 
-      <div className="panes">
-        <section className="pane problem-pane" aria-label="Problem">
+      <div className={`panes${focusEditor ? " focus" : ""}`} ref={panesRef}>
+        <section className="pane problem-pane" aria-label="Problem" style={{ width: layout.left }}>
           <div className="prose">
             <Paragraphs text={problem.statement} />
             <h3>Examples</h3>
@@ -206,7 +251,9 @@ export function Interview({ id }: { id: string }) {
           </div>
         </section>
 
-        <section className="pane editor-pane" aria-label="Code editor">
+        <Splitter orientation="vertical" label="Resize problem panel" onDrag={dragLeft} onReset={() => setLayout(defaultLayout())} />
+
+        <section className="pane editor-pane" aria-label="Code editor" ref={editorColRef}>
           <div className="toolbar">
             <div className="segmented small" role="radiogroup" aria-label="Language">
               {(Object.keys(languageLabel) as Language[]).map((l) => (
@@ -216,6 +263,22 @@ export function Interview({ id }: { id: string }) {
               ))}
             </div>
             <div className="row gap">
+              <button
+                className={`ghost${wrap ? " active" : ""}`}
+                aria-pressed={wrap}
+                title="Wrap long lines"
+                onClick={() => setWrap((w) => !w)}
+              >
+                <WrapText size={15} aria-hidden /> Wrap
+              </button>
+              <button
+                className="ghost"
+                aria-pressed={focusEditor}
+                title={focusEditor ? "Show problem and chat again" : "Hide problem and chat to give the editor the full width"}
+                onClick={() => setFocusEditor((f) => !f)}
+              >
+                {focusEditor ? <Minimize2 size={15} aria-hidden /> : <Maximize2 size={15} aria-hidden />} {focusEditor ? "Exit full" : "Full width"}
+              </button>
               <button
                 className="ghost"
                 title="Reset to starter code"
@@ -231,17 +294,20 @@ export function Interview({ id }: { id: string }) {
               </button>
             </div>
           </div>
-          <div className="editor-wrap">
+          <div className="editor-wrap" style={{ flex: `${layout.editor} 1 0` }}>
             <Suspense fallback={<p className="muted pad">Loading editor...</p>}>
-              <CodeEditor language={language} value={code} onChange={updateCode} onRun={() => run("run")} />
+              <CodeEditor language={language} value={code} onChange={updateCode} onRun={() => run("run")} wordWrap={wrap} />
             </Suspense>
           </div>
-          <div className="results-wrap">
+          <Splitter orientation="horizontal" label="Resize editor and test results" onDrag={dragEditor} onReset={() => setLayout((l) => ({ ...l, editor: 0.62 }))} />
+          <div className="results-wrap" style={{ flex: `${1 - layout.editor} 1 0` }}>
             <TestResults result={result?.result ?? null} kind={result?.kind ?? null} />
           </div>
         </section>
 
-        <section className="pane chat-pane" aria-label="Interviewer chat">
+        <Splitter orientation="vertical" label="Resize chat panel" onDrag={dragRight} onReset={() => setLayout(defaultLayout())} />
+
+        <section className="pane chat-pane" aria-label="Interviewer chat" style={{ width: layout.right }}>
           <div className="chat" aria-live="polite">
             {data.messages.map((m) => (
               <div key={m.id} className={`msg ${m.role}`}>

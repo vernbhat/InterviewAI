@@ -7,13 +7,13 @@ import time
 from pathlib import Path
 from typing import Any, Literal
 
-from fastapi import FastAPI, File, Header, HTTPException, UploadFile
+from fastapi import FastAPI, File, Header, HTTPException, Request, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
-from . import db, feedback, llm, runner
+from . import db, envfile, feedback, llm, runner
 from .codegen import starter_code
 from .interviewer import (
     PHASE_LABELS,
@@ -36,6 +36,10 @@ app.add_middleware(CORSMiddleware, allow_origins=origins, allow_methods=["*"], a
 
 Language = Literal["cpp", "python"]
 MAX_AUDIO_BYTES = 10 * 1024 * 1024
+
+
+class SaveKey(BaseModel):
+    key: str = Field(min_length=8, max_length=300)
 
 
 class CreateSession(BaseModel):
@@ -109,7 +113,26 @@ def health() -> dict[str, Any]:
         "llm_provider": llm.provider(),
         "llm_base_url": llm.base_url() if llm.provider() == "openai" else None,
         "phases": [{"id": p, "label": PHASE_LABELS[p]} for p in PHASES],
+        "can_save_key": envfile.can_save_key(),
     }
+
+
+LOOPBACK = {"127.0.0.1", "::1", "localhost"}
+
+
+@app.post("/api/local/key")
+def save_server_key(body: SaveKey, request: Request) -> dict[str, Any]:
+    """Local installs only: remember the API key in .env so it survives restarts."""
+    client = request.client.host if request.client else ""
+    if not envfile.can_save_key() or client not in LOOPBACK:
+        raise HTTPException(403, "Saving the key is only available when running locally with ./start.sh or npm run dev.")
+    try:
+        path = envfile.save_key(body.key)
+    except ValueError:
+        raise HTTPException(400, "That doesn't look like a valid API key.")
+    except OSError as e:
+        raise HTTPException(500, f"Couldn't write .env: {e}")
+    return {"saved": True, "path": str(path), "server_llm_key": llm.server_key() is not None}
 
 
 @app.get("/api/problems")

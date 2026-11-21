@@ -52,9 +52,16 @@ if ! have_gcc; then
 fi
 
 # ---------------------------------------------------------------- .env and Groq key
-if [[ ! -f .env ]]; then cp .env.example .env; say "Created .env from .env.example"; fi
+first_run=0
+if [[ ! -f .env ]]; then cp .env.example .env; first_run=1; say "Created .env from .env.example"; fi
 current_key="$(grep -E '^GROQ_API_KEY=' .env | head -1 | cut -d= -f2- || true)"
-if [[ -z "$current_key" || "${1:-}" == "--key" ]]; then
+# Ask only once (first run) or when --key is passed. The key is then remembered in .env.
+if [[ -n "$current_key" ]]; then
+  say "Using the Groq key saved in .env"
+elif [[ $first_run == 0 && "${1:-}" != "--key" ]]; then
+  warn "No Groq key in .env yet. Add it in the app (top-right button), run ./start.sh --key, or edit .env."
+fi
+if [[ ( -z "$current_key" && $first_run == 1 ) || "${1:-}" == "--key" ]]; then
   echo
   echo "Paste your Groq API key (starts with gsk_) and press Enter."
   echo "Get one free at https://console.groq.com/keys. Press Enter without typing to skip (offline mode)."
@@ -103,4 +110,4 @@ URL="http://localhost:$PORT"
 say "Starting InterviewAI at $URL  (press Ctrl+C to stop)"
 ( sleep 2; if [[ $IS_MAC == 1 ]]; then open "$URL"; elif command -v xdg-open >/dev/null; then xdg-open "$URL" >/dev/null 2>&1 || true; fi ) &
 cd services/ai
-exec "$ROOT/.venv/bin/python" -m uvicorn app.main:app --host 127.0.0.1 --port "$PORT"
+INTERVIEWAI_LOCAL=1 exec "$ROOT/.venv/bin/python" -m uvicorn app.main:app --host 127.0.0.1 --port "$PORT"

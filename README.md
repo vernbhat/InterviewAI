@@ -35,8 +35,8 @@ On macOS you can also double-click `start.command` in Finder.
 
 You have two options:
 
-1. **In the app (simplest):** click **Offline mode** in the top bar, paste the key, and press Save. The key stays in your browser.
-2. **In `.env`:** `start.sh` creates `.env` in the repo root (next to `README.md`) from `.env.example`, and writes `GROQ_API_KEY=gsk_...` into it. The API loads this file at startup. It's git-ignored and hidden in Finder (press Cmd+Shift+. to show it), so it never gets committed. You can also edit it yourself with `open -e .env`.
+1. **In the app (simplest):** click **Offline mode** in the top bar, paste the key, leave "Remember it in the .env file" ticked, and press Save. The key is written to `.env` and loaded on every start, so you only do this once. (The checkbox appears when running locally with `./start.sh` or `npm run dev`.)
+2. **In `.env` directly:** the API creates `.env` in the repo root (next to `README.md`) from `.env.example` on first start. Put `GROQ_API_KEY=gsk_...` in it. The API loads this file at startup. It's git-ignored and hidden in Finder (press Cmd+Shift+. to show it), so it never gets committed. You can also edit it yourself with `open -e .env`.
 
 ### Manual setup (for development)
 
@@ -49,6 +49,11 @@ pip install -r services/ai/requirements-dev.txt
 cp .env.example .env   # then put your GROQ_API_KEY in it
 npm run dev            # API on :8000, web on :5173 with hot reload
 ```
+
+## Editor
+
+- Drag the thin bars between the panels to resize the problem, editor, chat, and test-results areas. Double-click a bar to reset. Sizes are remembered.
+- **Wrap** toggles word wrap. **Full width** hides the problem and chat panels.
 
 ## Configuration
 

@@ -68,6 +68,7 @@ export function App() {
           onClose={() => {
             setShowSettings(false);
             setHasKey(Boolean(settings.getKey()));
+            api.health().then(setHealth, () => undefined);
           }}
         />
       )}

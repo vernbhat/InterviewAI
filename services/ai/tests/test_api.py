@@ -112,3 +112,10 @@ def test_sessions_are_isolated(client):
     assert a != b
     client.post(f"/api/sessions/{a}/messages", json={"text": "question for a"})
     assert all("question for a" not in m["content"] for m in client.get(f"/api/sessions/{b}").json()["messages"])
+
+
+def test_save_key_endpoint_requires_local(client, monkeypatch):
+    monkeypatch.delenv("INTERVIEWAI_LOCAL", raising=False)
+    r = client.post("/api/local/key", json={"key": "gsk_abcdefgh"})
+    assert r.status_code == 403
+    assert client.get("/api/health").json()["can_save_key"] is False

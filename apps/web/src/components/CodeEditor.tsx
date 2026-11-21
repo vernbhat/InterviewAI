@@ -9,9 +9,9 @@ import type { Language } from "../api";
 (self as unknown as { MonacoEnvironment: unknown }).MonacoEnvironment = { getWorker: () => new EditorWorker() };
 loader.config({ monaco });
 
-type Props = { language: Language; value: string; onChange: (v: string) => void; readOnly?: boolean; onRun?: () => void };
+type Props = { language: Language; value: string; onChange: (v: string) => void; readOnly?: boolean; onRun?: () => void; wordWrap?: boolean };
 
-export function CodeEditor({ language, value, onChange, readOnly, onRun }: Props) {
+export function CodeEditor({ language, value, onChange, readOnly, onRun, wordWrap }: Props) {
   return (
     <Editor
       height="100%"
@@ -24,6 +24,8 @@ export function CodeEditor({ language, value, onChange, readOnly, onRun }: Props
       }}
       options={{
         readOnly,
+        wordWrap: wordWrap ? "on" : "off",
+        wrappingIndent: "indent",
         minimap: { enabled: false },
         fontSize: 14,
         tabSize: 4,

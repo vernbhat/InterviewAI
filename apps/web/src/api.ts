@@ -41,7 +41,7 @@ export type SessionFull = {
   revealed_hints: string[]; report: Report | null;
 };
 export type HistoryItem = Session & { problem_title: string; difficulty: string | null; best_passed: number | null; submit_total: number | null };
-export type Health = { status: string; version: string; executor: string; server_llm_key: boolean; llm_model: string; phases: { id: Phase; label: string }[] };
+export type Health = { status: string; version: string; executor: string; server_llm_key: boolean; llm_model: string; can_save_key?: boolean; phases: { id: Phase; label: string }[] };
 
 // Hosted previews rewrite window.__API_BASE__ ("__PORT_8000__") to the backend proxy path at deploy time.
 // Locally (Vite dev proxy or FastAPI serving the build) the API is same-origin, so the base is "".
@@ -93,6 +93,7 @@ const post = <T,>(path: string, data?: unknown) => request<T>(path, { method: "P
 
 export const api = {
   health: () => request<Health>("/api/health"),
+  saveServerKey: (key: string) => post<{ saved: boolean; path: string; server_llm_key: boolean }>("/api/local/key", { key }),
   problems: () => request<ProblemSummary[]>("/api/problems"),
   createSession: (problem_id: string, language: Language) => post<SessionFull>("/api/sessions", { problem_id, language }),
   session: (id: string) => request<SessionFull>(`/api/sessions/${id}`),
